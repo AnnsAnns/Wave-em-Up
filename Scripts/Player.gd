@@ -6,6 +6,8 @@ var velocity = Vector2()
 
 func get_input():
 	velocity = Vector2()
+	$KinematicBody2D.look_at(get_global_mouse_position())
+	
 	if Input.is_action_pressed('right'):
 		velocity.x += 1
 	if Input.is_action_pressed('left'):
