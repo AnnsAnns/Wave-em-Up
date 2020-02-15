@@ -16,7 +16,17 @@ _global_script_class_icons={
 [application]
 
 config/name="Godot Wild Jam"
+run/main_scene="res://Scenes/Main Menu/Main_Menu.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Singleton="*res://Singletons/Singleton.gd"
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
 
 [importer_defaults]
 
@@ -43,4 +53,5 @@ texture={
 
 [rendering]
 
+environment/default_clear_color=Color( 0.313726, 0.286275, 0.317647, 1 )
 environment/default_environment="res://default_env.tres"
