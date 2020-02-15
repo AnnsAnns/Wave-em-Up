@@ -1,7 +1,5 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://firefox_e9gQTw2XHk.png" type="Texture" id=1]
-
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
  
@@ -42,17 +40,20 @@ shader = SubResource( 1 )
 shader_param/scan_line_count = 50.0
 shader_param/scroll_speed = 50.0
 
+[sub_resource type="StreamTexture" id=3]
+load_path = "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
+
 [node name="80s Shader CRT" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
 material = SubResource( 2 )
-margin_left = -3.0
-margin_top = -6.0
-margin_right = 1918.0
-margin_bottom = 1084.0
-texture = ExtResource( 1 )
+margin_left = 0.0909424
+margin_top = -2.90918
+margin_right = 1921.09
+margin_bottom = 1087.09
+texture = SubResource( 3 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
