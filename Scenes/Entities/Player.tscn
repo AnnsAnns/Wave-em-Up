@@ -10,6 +10,7 @@ extents = Vector2( 30.9427, 31.7576 )
 script = ExtResource( 2 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+scale = Vector2( 1.56658, 1.56658 )
 
 [node name="Sprite" type="Sprite" parent="KinematicBody2D"]
 texture = ExtResource( 1 )
