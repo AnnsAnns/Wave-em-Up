@@ -3,6 +3,8 @@ extends Node2D
 export (int) var speed = 400
 
 var velocity = Vector2()
+var mouse_position
+var player_position
 
 func get_input():
 	velocity = Vector2()
@@ -21,3 +23,11 @@ func get_input():
 func _physics_process(delta):
 	get_input()
 	velocity = $KinematicBody2D.move_and_slide(velocity)
+	get_function_based_on_position()
+	
+func get_function_based_on_position():
+	mouse_position = get_global_mouse_position()
+	player_position = $KinematicBody2D.position
+	
+	
+	
