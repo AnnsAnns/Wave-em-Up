@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Fonts/Menu_Font.tres" type="DynamicFont" id=1]
-[ext_resource path="res://Scripts/Main Menu/Main_Menu.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Menus/Main_Menu.gd" type="Script" id=3]
 
 [sub_resource type="StreamTexture" id=1]
 load_path = "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
