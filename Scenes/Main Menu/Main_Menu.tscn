@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Fonts/Menu_Font.tres" type="DynamicFont" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://firefox_e9gQTw2XHk.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Main Menu/Main_Menu.gd" type="Script" id=3]
 
 [node name="Main_Menu" type="Control"]
