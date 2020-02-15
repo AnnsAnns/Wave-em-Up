@@ -1,7 +1,8 @@
 extends Tree
 
-
-
+#Variable Declarations
+var music_volume = 100
+var sound_effects_volume = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
