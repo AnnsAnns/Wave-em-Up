@@ -1,12 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
-[ext_resource path="res://Assets/Testing/Gun.png" type="Texture" id=3]
 
-[sub_resource type="StreamTexture" id=2]
+[sub_resource type="StreamTexture" id=1]
 load_path = "res://.import/Player.png-612e90a50bfe895fcd0a3d6c16690c9e.stex"
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 14.435, 4.67489 )
 
 [node name="Player" type="Node2D"]
@@ -19,19 +18,14 @@ scale = Vector2( 1.86162, 1.86162 )
 
 [node name="Player_Sprite" type="Sprite" parent="KinematicBody2D"]
 rotation = 1.5708
-texture = SubResource( 2 )
+texture = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( -0.369404, -2.24154 )
 rotation = 1.5708
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Camera" type="Camera2D" parent="KinematicBody2D"]
 rotation = 0.0257565
 current = true
 smoothing_enabled = true
-
-[node name="Gun_Sprite" type="Sprite" parent="KinematicBody2D"]
-position = Vector2( 23.6345, -14.0766 )
-rotation = 0.0111241
-texture = ExtResource( 3 )

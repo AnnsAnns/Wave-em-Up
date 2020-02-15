@@ -1,11 +1,11 @@
 [gd_scene load_steps=6 format=2]
 
-[sub_resource type="Gradient" id=6]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.3, 0.681481, 1, 1 )
 colors = PoolColorArray( 0.00392157, 1, 0.764706, 1, 0.00392157, 1, 1, 1, 1, 0.701961, 0.992157, 1, 0.615686, 0.447059, 1, 1 )
 
 [sub_resource type="GradientTexture" id=2]
-gradient = SubResource( 6 )
+gradient = SubResource( 1 )
 
 [sub_resource type="Curve" id=3]
 max_value = 100.0
@@ -32,9 +32,7 @@ color_ramp = SubResource( 2 )
 hue_variation = 0.04
 hue_variation_random = 1.0
 
-[node name="Node2D" type="Node2D"]
-
-[node name="Particles2D" type="Particles2D" parent="."]
+[node name="SynthwaveParticle" type="Particles2D"]
 scale = Vector2( 1.00643, 1.00308 )
 amount = 125
 lifetime = 2.5
