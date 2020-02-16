@@ -1,0 +1,84 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Menus/Pause Menu.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/Menu_Font.tres" type="DynamicFont" id=2]
+
+[node name="Pause Menu" type="Control"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -960.0
+margin_top = -540.0
+margin_right = 960.0
+margin_bottom = 540.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -240.0
+margin_top = -250.0
+margin_right = 260.0
+margin_bottom = 390.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu Label" type="Label" parent="VBoxContainer"]
+margin_right = 500.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 2 )
+text = "Pause Menu"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+margin_top = 50.0
+margin_right = 500.0
+margin_bottom = 125.0
+rect_min_size = Vector2( 0, 75 )
+
+[node name="Resume" type="Button" parent="VBoxContainer"]
+margin_top = 129.0
+margin_right = 500.0
+margin_bottom = 181.0
+custom_fonts/font = ExtResource( 2 )
+text = "Resume"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+margin_top = 185.0
+margin_right = 500.0
+margin_bottom = 225.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="Options" type="Button" parent="VBoxContainer"]
+margin_top = 229.0
+margin_right = 500.0
+margin_bottom = 281.0
+custom_fonts/font = ExtResource( 2 )
+text = "Options"
+
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer"]
+margin_top = 285.0
+margin_right = 500.0
+margin_bottom = 325.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+margin_top = 329.0
+margin_right = 500.0
+margin_bottom = 381.0
+custom_fonts/font = ExtResource( 2 )
+text = "Quit"
+[connection signal="button_up" from="VBoxContainer/Resume" to="." method="_on_Resume_button_up"]
+[connection signal="button_up" from="VBoxContainer/Options" to="." method="_on_Options_button_up"]
+[connection signal="button_up" from="VBoxContainer/Quit" to="." method="_on_Quit_button_up"]

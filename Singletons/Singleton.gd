@@ -1,17 +1,21 @@
 extends Tree
 
+#Variable Declarations
+onready var main_menu = "res://Scenes/Main Menu/Main_Menu.tscn"
+var current_scene = "res://Scenes/Main Menu/Main_Menu.tscn"
 
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+## Option variables
+var music_volume = 100
+var sound_effects_volume = 100
 
 
 # Call to Change Room
 func scene_goto(scene):
 	var result = get_tree().change_scene(scene)
-	print("Scene Change: " + str(result))
+	
+	# Store Current Scene
+	if (result == 0):
+		current_scene = scene
 
 #Toggle Fullscreen
 func fullscreen():
@@ -19,9 +23,6 @@ func fullscreen():
 		OS.set_window_fullscreen(true)
 	elif (OS.is_window_fullscreen() == true):
 		OS.set_window_fullscreen(false)
-
-
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
