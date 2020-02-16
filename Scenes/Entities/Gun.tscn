@@ -24,3 +24,6 @@ emitting = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -29.2902, 9.46519 )
 shape = SubResource( 1 )
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+autoplay = true
