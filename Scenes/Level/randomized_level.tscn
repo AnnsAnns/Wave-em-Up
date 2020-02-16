@@ -13,4 +13,4 @@ tilesLimit = 16
 scale = Vector2( 1, 1 )
 
 [node name="80s Shader CRT" parent="." instance=ExtResource( 3 )]
-position = Vector2( -1114.56, 2135.35 )
+position = Vector2( -1535.03, 1875.14 )
