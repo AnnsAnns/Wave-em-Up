@@ -10,3 +10,7 @@ func _on_Area2D_body_entered(body):
 		$PickupGun.hide()
 		$Player/KinematicBody2D/Gun.show()
 		PlayerPickedUpGun = true
+		
+
+func _process(delta):
+	pass
