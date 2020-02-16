@@ -7,7 +7,7 @@
 load_path = "res://.import/Player.png-612e90a50bfe895fcd0a3d6c16690c9e.stex"
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 14.435, 4.67489 )
+extents = Vector2( 14.123, 4.67489 )
 
 [node name="Player" type="Node2D"]
 scale = Vector2( 2.77853, 2.77853 )
@@ -18,11 +18,18 @@ rotation = 1.5708
 scale = Vector2( 1.86162, 1.86162 )
 
 [node name="Player_Sprite" type="Sprite" parent="KinematicBody2D"]
+position = Vector2( -0.0895712, 0.268699 )
 rotation = 1.5708
+scale = Vector2( 1, 1 )
 texture = SubResource( 1 )
 
+[node name="Gun" parent="KinematicBody2D" instance=ExtResource( 1 )]
+position = Vector2( 22.5336, -16.761 )
+rotation = 3.79492e-13
+scale = Vector2( 0.299576, 0.299576 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
-position = Vector2( -0.369404, -2.24154 )
+position = Vector2( -0.548537, -2.3311 )
 rotation = 1.5708
 shape = SubResource( 2 )
 
@@ -30,7 +37,3 @@ shape = SubResource( 2 )
 rotation = 0.0257565
 current = true
 smoothing_enabled = true
-
-[node name="Gun" parent="KinematicBody2D" instance=ExtResource( 1 )]
-position = Vector2( 22.8023, -18.1045 )
-scale = Vector2( 0.299576, 0.299576 )
