@@ -6,7 +6,6 @@
 
 [node name="Position2D" type="Position2D"]
 position = Vector2( 945.24, 500.018 )
-rotation = 1.5708
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -14,8 +13,4 @@ scale = Vector2( 4.15506, 4.15506 )
 texture = ExtResource( 1 )
 
 [node name="SynthwaveParticle" parent="." instance=ExtResource( 2 )]
-rotation = -1.5708
-scale = Vector2( 4.18178, 4.16786 )
-emitting = false
-amount = 250
-one_shot = true
+position = Vector2( -4.41058, -11.0264 )
