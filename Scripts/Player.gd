@@ -28,6 +28,3 @@ func _physics_process(delta):
 func get_function_based_on_position():
 	mouse_position = get_global_mouse_position()
 	player_position = $KinematicBody2D.position
-	
-	
-	
