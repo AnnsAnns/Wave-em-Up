@@ -17,6 +17,7 @@ _global_script_class_icons={
 
 config/name="Godot Wild Jam"
 run/main_scene="res://Scenes/Main Menu/Main_Menu.tscn"
+boot_splash/image="res://Assets/Jam_Images/wallpaper.png"
 config/icon="res://icon.png"
 
 [autoload]
