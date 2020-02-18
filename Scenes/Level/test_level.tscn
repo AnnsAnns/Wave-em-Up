@@ -63,6 +63,10 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 
 position = Vector2( 1095.83, 535.105 )
 scale = Vector2( 2.53226, 2.54152 )
 
+[node name="Camera" parent="Player/KinematicBody2D" index="3"]
+position = Vector2( 6.86646e-05, 0.726501 )
+scale = Vector2( 0.990808, 0.999931 )
+
 [node name="Enemy" parent="." instance=ExtResource( 7 )]
 position = Vector2( 481.712, 495.164 )
 scale = Vector2( 4.96926, 5.1551 )

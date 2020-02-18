@@ -18,7 +18,8 @@ scale = Vector2( 4.15506, 4.15506 )
 texture = ExtResource( 1 )
 
 [node name="SynthwaveParticle" parent="." instance=ExtResource( 2 )]
-position = Vector2( 6.85744, -0.991791 )
+visible = false
+position = Vector2( 6.43935, -0.991791 )
 scale = Vector2( 1.02269, 1.03135 )
 emitting = false
 lifetime = 3.0
@@ -27,3 +28,11 @@ visibility_rect = Rect2( -6.70527, 0, 866.692, 247.671 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -26.7868, 9.71553 )
 shape = SubResource( 1 )
+
+[node name="Muzzle" type="Position2D" parent="."]
+visible = false
+position = Vector2( 2.50035, -0.585049 )
+
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
