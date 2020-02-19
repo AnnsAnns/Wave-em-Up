@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/particles_smokeriser1.png-7616bfd06d30bf252c0eac8ee9a8aede.stex"
+path="res://.import/particles_smokeriser1.png-743790e2d7784fa492eea66ab75ae5c0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/FX/64x64/particles_smokeriser1.png"
-dest_files=[ "res://.import/particles_smokeriser1.png-7616bfd06d30bf252c0eac8ee9a8aede.stex" ]
+source_file="res://Assets/FX/64x64/particles_smokeriser1.png"
+dest_files=[ "res://.import/particles_smokeriser1.png-743790e2d7784fa492eea66ab75ae5c0.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/64px_particles_2dots.png-c7f5c52b3796963dd01cdcbfdd66a3eb.stex"
+path="res://.import/PlayerSpriteSheet.png-e4d8e92477d1e5c2ed2810b72d305d6c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/FX/64x64/64px_particles_2dots.png"
-dest_files=[ "res://.import/64px_particles_2dots.png-c7f5c52b3796963dd01cdcbfdd66a3eb.stex" ]
+source_file="res://Assets/Sprites/PlayerSpriteSheet.png"
+dest_files=[ "res://.import/PlayerSpriteSheet.png-e4d8e92477d1e5c2ed2810b72d305d6c.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
@@ -30,5 +30,5 @@ process/HDR_as_SRGB=false
 process/invert_color=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/rain_particles_heavy2.png-7deb723b846988b036a4113b382a4fd4.stex"
+path="res://.import/rain_particles_heavy2.png-5adf5255ce91068eb78094fc7ef3aadd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/FX/64x64/rain_particles_heavy2.png"
-dest_files=[ "res://.import/rain_particles_heavy2.png-7deb723b846988b036a4113b382a4fd4.stex" ]
+source_file="res://Assets/FX/64x64/rain_particles_heavy2.png"
+dest_files=[ "res://.import/rain_particles_heavy2.png-5adf5255ce91068eb78094fc7ef3aadd.stex" ]
 
 [params]
 

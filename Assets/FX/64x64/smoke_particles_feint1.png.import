@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/smoke_particles_feint1.png-a11d971fbda6ab2013618b0411cd3d00.stex"
+path="res://.import/smoke_particles_feint1.png-347f9e4d5b71d312110bcbb3cd600092.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/FX/64x64/smoke_particles_feint1.png"
-dest_files=[ "res://.import/smoke_particles_feint1.png-a11d971fbda6ab2013618b0411cd3d00.stex" ]
+source_file="res://Assets/FX/64x64/smoke_particles_feint1.png"
+dest_files=[ "res://.import/smoke_particles_feint1.png-347f9e4d5b71d312110bcbb3cd600092.stex" ]
 
 [params]
 

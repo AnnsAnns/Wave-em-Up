@@ -20,7 +20,6 @@ scale = Vector2( 1.86162, 1.86162 )
 [node name="Player_Sprite" type="Sprite" parent="KinematicBody2D"]
 position = Vector2( -0.0895712, 0.268699 )
 rotation = 1.5708
-scale = Vector2( 1, 1 )
 texture = SubResource( 1 )
 
 [node name="Gun" parent="KinematicBody2D" instance=ExtResource( 1 )]

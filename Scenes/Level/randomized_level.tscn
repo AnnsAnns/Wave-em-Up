@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Scenes/Entities/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Entities/PlayerAnimated.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Entities/Tile.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Shaders/CRT_Monitor.tscn" type="PackedScene" id=3]
 
@@ -10,7 +10,6 @@
 tilesLimit = 16
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-scale = Vector2( 1, 1 )
 
 [node name="80s Shader CRT" parent="." instance=ExtResource( 3 )]
-position = Vector2( -1535.03, 1875.14 )
+position = Vector2( -1281.68, 288.442 )

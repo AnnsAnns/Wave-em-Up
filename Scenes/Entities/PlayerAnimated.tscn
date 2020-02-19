@@ -1,0 +1,262 @@
+[gd_scene load_steps=31 format=2]
+
+[ext_resource path="res://Assets/Sprites/PlayerSpriteSheet.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Gun.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Shaders/SynthwaveParticle.tscn" type="PackedScene" id=4]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+export (int) var speed = 400
+
+var velocity = Vector2()
+var mouse_position
+var player_position
+onready var sprite = $KinematicBody2D/Player_Sprite
+
+func get_input():
+	velocity = Vector2()
+	#$KinematicBody2D.look_at(get_global_mouse_position())
+	$KinematicBody2D/AimPivot.look_at(get_global_mouse_position())
+	
+	if Input.is_action_pressed('right'):
+		velocity.x += 1
+	if Input.is_action_pressed('left'):
+		velocity.x -= 1
+	if Input.is_action_pressed('down'):
+		velocity.y += 1
+	if Input.is_action_pressed('up'):
+		velocity.y -= 1
+	velocity = velocity.normalized() * speed
+
+func animate_body():
+	#Flip sprite
+	var p = mouse_position.x - player_position.x
+	if p > 0:
+		sprite.flip_h = false
+		$KinematicBody2D/AimPivot/Arms.position.y = 4
+		$KinematicBody2D/AimPivot/Arms.flip_v = false
+		$KinematicBody2D/AimPivot.position.y = 2
+	else:
+		sprite.flip_h = true
+		$KinematicBody2D/AimPivot/Arms.position.y = -4
+		$KinematicBody2D/AimPivot/Arms.flip_v = true
+		$KinematicBody2D/AimPivot.position.y = -2
+	
+	#Animate sprite
+	match sprite.flip_h:
+		false:
+			if velocity.x < 0:	sprite.play(\"Backward\", false)
+			elif velocity == Vector2.ZERO:	sprite.play(\"Idle\", false)
+			else:	sprite.play(\"Forward\", false)
+		
+		true:
+			if velocity.x > 0:	sprite.play(\"Backward\", false)
+			elif velocity == Vector2.ZERO:	sprite.play(\"Idle\", false)
+			else:	sprite.play(\"Forward\", false)
+
+func _physics_process(delta):
+	get_input()
+	velocity = $KinematicBody2D.move_and_slide(velocity)
+	get_function_based_on_position()
+	animate_body()
+
+func get_function_based_on_position():
+	mouse_position = get_global_mouse_position()
+	player_position = $KinematicBody2D.global_position
+
+func _on_AimPivot_IsNotFiring():
+	$KinematicBody2D/AimPivot/Arms.play(\"Normal\",false)
+
+func _on_AimPivot_IsFiring():
+	$KinematicBody2D/AimPivot/Arms.play(\"Shoot\",false)
+"
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 128, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 2 )
+region = Rect2( 128, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 2 )
+region = Rect2( 160, 32, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=15]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"loop": true,
+"name": "Forward",
+"speed": 6.0
+}, {
+"frames": [ SubResource( 8 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "Backward",
+"speed": 6.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=23]
+extents = Vector2( 6, 15 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 64, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=22]
+animations = [ {
+"frames": [ SubResource( 17 ) ],
+"loop": true,
+"name": "Normal",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ) ],
+"loop": true,
+"name": "Shoot",
+"speed": 60.0
+} ]
+
+[sub_resource type="ShaderMaterial" id=24]
+
+[sub_resource type="Gradient" id=29]
+colors = PoolColorArray( 0, 0, 0, 1, 1, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=26]
+gradient = SubResource( 29 )
+width = 6
+
+[sub_resource type="Gradient" id=27]
+colors = PoolColorArray( 1, 0, 1, 1, 0, 0, 1, 1 )
+
+[sub_resource type="GradientTexture" id=28]
+gradient = SubResource( 27 )
+width = 6
+
+[node name="Player" type="Node2D"]
+scale = Vector2( 2.77853, 2.77853 )
+script = SubResource( 1 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+rotation = 1.5708
+
+[node name="Player_Sprite" type="AnimatedSprite" parent="KinematicBody2D"]
+rotation = -1.5708
+frames = SubResource( 15 )
+animation = "Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+position = Vector2( 1, 0 )
+rotation = 1.5708
+shape = SubResource( 23 )
+
+[node name="Camera" type="Camera2D" parent="KinematicBody2D"]
+position = Vector2( -2.63751e-06, -0.719805 )
+current = true
+process_mode = 0
+smoothing_enabled = true
+smoothing_speed = 6.0
+
+[node name="AimPivot" type="KinematicBody2D" parent="KinematicBody2D"]
+position = Vector2( -4, 2 )
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 3 )
+
+[node name="Arms" type="AnimatedSprite" parent="KinematicBody2D/AimPivot"]
+position = Vector2( 10, 4 )
+frames = SubResource( 22 )
+animation = "Normal"
+playing = true
+
+[node name="SynthwaveParticle" parent="KinematicBody2D/AimPivot" instance=ExtResource( 4 )]
+position = Vector2( 20, -1 )
+rotation = 3.79492e-13
+scale = Vector2( 0.299576, 0.299576 )
+
+[node name="DirectRay" type="RayCast2D" parent="KinematicBody2D/AimPivot"]
+position = Vector2( 20, -1 )
+cast_to = Vector2( 60, 0 )
+
+[node name="Sprite2" type="Sprite" parent="KinematicBody2D/AimPivot/DirectRay"]
+modulate = Color( 1, 1, 1, 0.501961 )
+material = SubResource( 24 )
+position = Vector2( 32.3021, 1.07548e-06 )
+rotation = 3.14159
+scale = Vector2( 11.101, 6 )
+texture = SubResource( 26 )
+
+[node name="SmoothRay" type="RayCast2D" parent="KinematicBody2D/AimPivot"]
+position = Vector2( 20, -1 )
+cast_to = Vector2( 85, 0 )
+
+[node name="Sprite3" type="Sprite" parent="KinematicBody2D/AimPivot/SmoothRay"]
+modulate = Color( 1, 1, 1, 0.501961 )
+material = SubResource( 24 )
+position = Vector2( 45.111, 3.79165e-06 )
+rotation = -3.14159
+scale = Vector2( 15.3703, 2 )
+texture = SubResource( 28 )
+[connection signal="IsFiring" from="KinematicBody2D/AimPivot" to="." method="_on_AimPivot_IsFiring"]
+[connection signal="IsNotFiring" from="KinematicBody2D/AimPivot" to="." method="_on_AimPivot_IsNotFiring"]
