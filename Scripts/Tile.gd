@@ -19,6 +19,7 @@ var currentTilePos = Vector2.ZERO
 var tilesPlaced = 0
 
 #onready var tileMap = $TileRoot
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	generate()
@@ -87,7 +88,6 @@ func draw_tile_map():
 	elif dynImg.get_pixelv(currentTilePos + Vector2.RIGHT).b > 0.5:
 		endid = 2
 	
-	
 	if dynImg.get_pixelv(start + Vector2.UP).b > 0.5:
 		startid = 6
 		
@@ -104,6 +104,8 @@ func draw_tile_map():
 	set_cellv(start, startid)
 	
 	dynImg.unlock()
+	
+	update_dirty_quadrants()
 
 func place_tile(p:Vector2, d:int, end:bool):
 	var np = p + Vector2.UP
