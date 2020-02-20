@@ -18,12 +18,11 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 damping = 100.0
 damping_curve = SubResource( 2 )
-scale = 10.0
+scale = 8.0
 hue_variation = 1.0
 hue_variation_random = 1.0
 
 [node name="SynthwaveParticle" type="Particles2D"]
-position = Vector2( -1.58667, 0 )
 amount = 300
 speed_scale = 2.5
 local_coords = false
