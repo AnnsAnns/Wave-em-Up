@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/WillowbladeBoss/TV4.png" type="Texture" id=1]
 [ext_resource path="res://Assets/WillowbladeBoss/Talking_probably_questionmark.png" type="Texture" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://Assets/WillowbladeBoss/TV5.png" type="Texture" id=5]
 [ext_resource path="res://Assets/WillowbladeBoss/TV1.png" type="Texture" id=6]
 [ext_resource path="res://Assets/WillowbladeBoss/TV3.png" type="Texture" id=7]
+[ext_resource path="res://Scripts/Bossfight.gd" type="Script" id=8]
+[ext_resource path="res://Scenes/Bossfight/WeatherEvent.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 62.7751, 44.5939 )
@@ -36,6 +38,9 @@ animations = [ {
 } ]
 
 [node name="Bossfight" type="Node2D"]
+position = Vector2( 942.913, 511.681 )
+scale = Vector2( 2.08928, 2.08928 )
+script = ExtResource( 8 )
 
 [node name="Willowblade" type="StaticBody2D" parent="."]
 
@@ -58,3 +63,15 @@ shape = SubResource( 3 )
 frames = SubResource( 4 )
 animation = "looking_at_player"
 playing = true
+
+[node name="Willow_SFX" type="AudioStreamPlayer2D" parent="Willowblade"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 7.45914, 13.9859 )
+scale = Vector2( 1.53578, 0.754113 )
+current = true
+
+[node name="Weather" parent="." instance=ExtResource( 9 )]
+position = Vector2( -548.197, -533.717 )
+scale = Vector2( 0.606066, 0.606066 )
+[connection signal="body_entered" from="Willowblade/Detection" to="." method="_Willow_Body_Entered"]
