@@ -4,7 +4,6 @@ signal waterdrop_hit(body)
 var waterdrop
 
 func _ready():
-	randomize()
 	$Cloudsfadingin.play("Clouds coming in")
 	yield($Cloudsfadingin, "animation_finished")
 	$Raining.play("Raining")

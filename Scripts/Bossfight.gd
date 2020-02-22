@@ -1,4 +1,6 @@
 extends Node2D
 
-func _Willow_Body_Entered(body):
-	pass # Replace with function body.
+var WeatherAttack = preload("res://Scenes/Bossfight/WeatherEvent.tscn")
+
+func _ready():
+	add_child_below_node($Willowblade, WeatherAttack)
