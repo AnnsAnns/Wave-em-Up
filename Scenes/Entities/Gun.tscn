@@ -4,6 +4,8 @@
 [ext_resource path="res://Scenes/Shaders/SynthwaveParticle.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Gun.gd" type="Script" id=3]
 
+
+
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 31.7055, 16.889 )
 

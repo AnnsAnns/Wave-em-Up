@@ -7,5 +7,6 @@
 scale = Vector2( 32, 32 )
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 16, 16 )
+collision_layer = 3
 format = 1
 script = ExtResource( 2 )

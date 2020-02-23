@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Assets/Sprites/PlayerSpriteSheet.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Gun.gd" type="Script" id=3]
@@ -8,11 +8,20 @@
 script/source = "extends Node2D
 
 export (int) var speed = 400
+export (int) var maxHealth = 6
+var health = maxHealth
 
 var velocity = Vector2()
 var mouse_position
 var player_position
 onready var sprite = $KinematicBody2D/Player_Sprite
+
+signal gain_health
+signal lose_health
+
+func _ready():
+	health = maxHealth
+	$KinematicBody2D/Label.text = \"HP: \" + String(health) + \"/\" + String(maxHealth)
 
 func get_input():
 	velocity = Vector2()
@@ -28,6 +37,12 @@ func get_input():
 	if Input.is_action_pressed('up'):
 		velocity.y -= 1
 	velocity = velocity.normalized() * speed
+	
+	if Input.is_action_just_pressed(\"ui_up\"):
+		emit_signal(\"gain_health\")
+	
+	if Input.is_action_just_pressed(\"ui_down\"):
+		emit_signal(\"lose_health\")
 
 func animate_body():
 	#Flip sprite
@@ -70,7 +85,21 @@ func _on_AimPivot_IsNotFiring():
 
 func _on_AimPivot_IsFiring():
 	$KinematicBody2D/AimPivot/Arms.play(\"Shoot\",false)
+
+func _on_Player_gain_health():
+	health = clamp(health + 1, 0, maxHealth)
+	$KinematicBody2D/Label.text = \"HP: \" + String(health) + \"/\" + String(maxHealth)
+
+func _on_Player_lose_health():
+	health = clamp(health - 1, 0, maxHealth)
+	$KinematicBody2D/Label.text = \"HP: \" + String(health) + \"/\" + String(maxHealth)
+	
+	OS.delay_msec(50)
 "
+
+[sub_resource type="NoiseTexture" id=24]
+width = 12
+height = 3
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
@@ -142,8 +171,9 @@ animations = [ {
 "speed": 6.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=16]
-extents = Vector2( 10, 30 )
+[sub_resource type="CapsuleShape2D" id=23]
+radius = 12.0
+height = 32.0
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 2 )
@@ -178,44 +208,42 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="ShaderMaterial" id=23]
-
-[sub_resource type="Gradient" id=24]
-colors = PoolColorArray( 0, 0, 0, 1, 1, 0, 0, 1 )
-
-[sub_resource type="GradientTexture" id=25]
-gradient = SubResource( 24 )
-width = 6
-
-[sub_resource type="Gradient" id=26]
-colors = PoolColorArray( 1, 0, 1, 1, 0, 0, 1, 1 )
-
-[sub_resource type="GradientTexture" id=27]
-gradient = SubResource( 26 )
-width = 2
-
 [node name="Player" type="Node2D"]
 script = SubResource( 1 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
 rotation = 1.5708
 
+[node name="Shadow" type="Sprite" parent="KinematicBody2D"]
+modulate = Color( 1, 1, 1, 0.768627 )
+position = Vector2( 31, 0 )
+rotation = -1.5708
+scale = Vector2( 2, 2 )
+texture = SubResource( 24 )
+
 [node name="Player_Sprite" type="AnimatedSprite" parent="KinematicBody2D"]
 rotation = -1.5708
 scale = Vector2( 2, 2 )
 frames = SubResource( 15 )
 animation = "Idle"
+speed_scale = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+position = Vector2( 4, 0 )
 rotation = 1.5708
-shape = SubResource( 16 )
+shape = SubResource( 23 )
 
 [node name="Camera" type="Camera2D" parent="KinematicBody2D"]
-position = Vector2( -2.63751e-06, -0.719805 )
+position = Vector2( 16, 0 )
 current = true
+zoom = Vector2( 0.6, 0.6 )
 process_mode = 0
 smoothing_enabled = true
 smoothing_speed = 6.0
+drag_margin_left = 0.1
+drag_margin_top = 0.1
+drag_margin_right = 0.1
+drag_margin_bottom = 0.1
 
 [node name="AimPivot" type="KinematicBody2D" parent="KinematicBody2D"]
 position = Vector2( -8, 4 )
@@ -239,25 +267,28 @@ emitting = false
 lifetime = 0.5
 
 [node name="DirectRay" type="RayCast2D" parent="KinematicBody2D/AimPivot/Muzzle"]
+position = Vector2( -16, 0 )
 cast_to = Vector2( 120, 0 )
-
-[node name="Sprite2" type="Sprite" parent="KinematicBody2D/AimPivot/Muzzle/DirectRay"]
-modulate = Color( 1, 1, 1, 0.501961 )
-material = SubResource( 23 )
-position = Vector2( 60, 0 )
-rotation = 3.14159
-scale = Vector2( 20, 6 )
-texture = SubResource( 25 )
+collision_mask = 2
 
 [node name="SmoothRay" type="RayCast2D" parent="KinematicBody2D/AimPivot/Muzzle"]
-cast_to = Vector2( 180, 0 )
+position = Vector2( -16, 0 )
+cast_to = Vector2( 200, 0 )
+collision_mask = 2
 
-[node name="Sprite3" type="Sprite" parent="KinematicBody2D/AimPivot/Muzzle/SmoothRay"]
-modulate = Color( 1, 1, 1, 0.501961 )
-material = SubResource( 23 )
-position = Vector2( 90, 0 )
-rotation = -3.14159
-scale = Vector2( 90, 2 )
-texture = SubResource( 27 )
+[node name="Label" type="Label" parent="KinematicBody2D"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = -40.0
+margin_right = 10.0
+margin_bottom = 14.0
+rect_rotation = -90.0
+text = "HP: 1"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="gain_health" from="." to="." method="_on_Player_gain_health"]
+[connection signal="lose_health" from="." to="." method="_on_Player_lose_health"]
 [connection signal="IsFiring" from="KinematicBody2D/AimPivot" to="." method="_on_AimPivot_IsFiring"]
 [connection signal="IsNotFiring" from="KinematicBody2D/AimPivot" to="." method="_on_AimPivot_IsNotFiring"]
