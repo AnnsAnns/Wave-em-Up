@@ -3,6 +3,8 @@
 [ext_resource path="res://Scenes/Entities/Gun.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
 
+
+
 [sub_resource type="StreamTexture" id=1]
 load_path = "res://.import/Player.png-612e90a50bfe895fcd0a3d6c16690c9e.stex"
 

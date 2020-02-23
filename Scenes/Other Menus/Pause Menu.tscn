@@ -3,6 +3,8 @@
 [ext_resource path="res://Scripts/Menus/Pause Menu.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/Menu_Font.tres" type="DynamicFont" id=2]
 
+
+
 [node name="Pause Menu" type="Control"]
 pause_mode = 2
 anchor_left = 0.5
