@@ -3,6 +3,8 @@ extends Node2D
 signal waterdrop_hit(body)
 var waterdrop
 
+onready var player = $"../Player/KinematicBody2D"
+
 func _ready():
 	$Cloudsfadingin.play("Clouds coming in")
 	yield($Cloudsfadingin, "animation_finished")
@@ -15,5 +17,8 @@ func _ready():
 	$Cloudsfadingin.play_backwards("Clouds coming in")
 
 func _on_WaterDrop_body_entered(body):
-	print("Test")
-	emit_signal("waterdrop_hit", body)
+	
+	if not body == player:
+		return
+	
+	player.get_parent().emit_signal("lose_health")

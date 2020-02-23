@@ -7,7 +7,7 @@
 [ext_resource path="res://Assets/WillowbladeBoss/Cloud.png" type="Texture" id=5]
 [ext_resource path="res://Scripts/BossfightWeatherEvent.gd" type="Script" id=6]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
 resource_name = "Raining"
 length = 3.2
 step = 15.0
@@ -255,8 +255,7 @@ tracks/19/keys = {
 [sub_resource type="CircleShape2D" id=2]
 radius = 29.4403
 
-[sub_resource type="Animation" id=1]
-resource_name = "Clouds coming in"
+[sub_resource type="Animation" id=3]
 length = 4.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Cloudsfadingin/Cloud:position")
@@ -383,10 +382,10 @@ tracks/9/keys = {
 script = ExtResource( 6 )
 
 [node name="Raining" type="AnimationPlayer" parent="."]
-anims/Raining = SubResource( 3 )
+anims/Raining = SubResource( 1 )
 
 [node name="WaterDrop" type="Area2D" parent="Raining"]
-position = Vector2( 200.778, 1163.37 )
+position = Vector2( 95.6663, 14.35 )
 
 [node name="Sprite" type="Sprite" parent="Raining/WaterDrop"]
 position = Vector2( -3.52273, 3.12724 )
@@ -398,7 +397,7 @@ position = Vector2( -6.46449, 11.8438 )
 shape = SubResource( 2 )
 
 [node name="WaterDrop2" type="Area2D" parent="Raining"]
-position = Vector2( 341.147, 1152.25 )
+position = Vector2( 231.991, 71.7498 )
 
 [node name="Sprite" type="Sprite" parent="Raining/WaterDrop2"]
 position = Vector2( -3.52273, 3.12724 )
@@ -410,7 +409,7 @@ position = Vector2( -6.46449, 11.8438 )
 shape = SubResource( 2 )
 
 [node name="WaterDrop3" type="Area2D" parent="Raining"]
-position = Vector2( 496.948, 1187.02 )
+position = Vector2( 394.623, -62.1831 )
 
 [node name="Sprite" type="Sprite" parent="Raining/WaterDrop3"]
 position = Vector2( -3.52273, 3.12724 )
@@ -422,7 +421,7 @@ position = Vector2( -6.46449, 11.8438 )
 shape = SubResource( 2 )
 
 [node name="WaterDrop4" type="Area2D" parent="Raining"]
-position = Vector2( 639.748, 1147.7 )
+position = Vector2( 540.514, 71.7497 )
 
 [node name="Sprite" type="Sprite" parent="Raining/WaterDrop4"]
 position = Vector2( -3.52273, 3.12724 )
@@ -434,7 +433,7 @@ position = Vector2( -6.46449, 11.8438 )
 shape = SubResource( 2 )
 
 [node name="WaterDrop5" type="Area2D" parent="Raining"]
-position = Vector2( 810.055, 1129.09 )
+position = Vector2( 722.28, -234.382 )
 
 [node name="Sprite" type="Sprite" parent="Raining/WaterDrop5"]
 position = Vector2( -3.52273, 3.12724 )
@@ -446,7 +445,7 @@ position = Vector2( -6.46449, 11.8438 )
 shape = SubResource( 2 )
 
 [node name="WaterDrop6" type="Area2D" parent="Raining"]
-position = Vector2( 983.168, 1170.07 )
+position = Vector2( 896.871, -45.4415 )
 
 [node name="Sprite" type="Sprite" parent="Raining/WaterDrop6"]
 position = Vector2( -3.52273, 3.12724 )
@@ -458,7 +457,7 @@ position = Vector2( -6.46449, 11.8438 )
 shape = SubResource( 2 )
 
 [node name="WaterDrop7" type="Area2D" parent="Raining"]
-position = Vector2( 1239.88, 1147.77 )
+position = Vector2( 1133.65, 83.708 )
 
 [node name="Sprite" type="Sprite" parent="Raining/WaterDrop7"]
 position = Vector2( -3.52273, 3.12724 )
@@ -470,7 +469,7 @@ position = Vector2( -6.46449, 11.8438 )
 shape = SubResource( 2 )
 
 [node name="WaterDrop8" type="Area2D" parent="Raining"]
-position = Vector2( 1461.94, 1143.9 )
+position = Vector2( 1379.99, -138.716 )
 
 [node name="Sprite" type="Sprite" parent="Raining/WaterDrop8"]
 position = Vector2( -3.52273, 3.12724 )
@@ -482,7 +481,7 @@ position = Vector2( -6.46449, 11.8438 )
 shape = SubResource( 2 )
 
 [node name="WaterDrop9" type="Area2D" parent="Raining"]
-position = Vector2( 1650.33, 1155.4 )
+position = Vector2( 1492.39, 162.633 )
 
 [node name="Sprite" type="Sprite" parent="Raining/WaterDrop9"]
 position = Vector2( -3.52273, 3.12724 )
@@ -494,7 +493,7 @@ position = Vector2( -6.46449, 11.8438 )
 shape = SubResource( 2 )
 
 [node name="WaterDrop10" type="Area2D" parent="Raining"]
-position = Vector2( 1847.55, 1161.13 )
+position = Vector2( 1757.07, -8.77087 )
 
 [node name="Sprite" type="Sprite" parent="Raining/WaterDrop10"]
 position = Vector2( -3.52273, 3.12724 )
@@ -506,7 +505,7 @@ position = Vector2( -6.46449, 11.8438 )
 shape = SubResource( 2 )
 
 [node name="Cloudsfadingin" type="AnimationPlayer" parent="."]
-"anims/Clouds coming in" = SubResource( 1 )
+"anims/Clouds coming in" = SubResource( 3 )
 
 [node name="Cloud" type="Sprite" parent="Cloudsfadingin"]
 position = Vector2( 168.599, 111.757 )

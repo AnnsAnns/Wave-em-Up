@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/WillowbladeBoss/TV4.png" type="Texture" id=1]
 [ext_resource path="res://Assets/WillowbladeBoss/Talking_probably_questionmark.png" type="Texture" id=2]
@@ -8,8 +8,10 @@
 [ext_resource path="res://Assets/WillowbladeBoss/TV1.png" type="Texture" id=6]
 [ext_resource path="res://Assets/WillowbladeBoss/TV3.png" type="Texture" id=7]
 [ext_resource path="res://Scripts/Bossfight.gd" type="Script" id=8]
+[ext_resource path="res://Scenes/Bossfight/WeatherEvent.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Assets/WillowbladeBoss/Angry2.png" type="Texture" id=10]
 [ext_resource path="res://Assets/WillowbladeBoss/Angry.png" type="Texture" id=11]
+[ext_resource path="res://Scenes/Entities/PlayerAnimated.tscn" type="PackedScene" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 62.7751, 44.5939 )
@@ -37,14 +39,14 @@ animations = [ {
 "name": "Angry",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 11 ) ],
-"loop": true,
-"name": "Flex",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "looking_at_player",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "Flex",
 "speed": 5.0
 } ]
 
@@ -54,6 +56,7 @@ scale = Vector2( 2.08928, 2.08928 )
 script = ExtResource( 8 )
 
 [node name="Willowblade" type="StaticBody2D" parent="."]
+position = Vector2( 0.528564, 18.1882 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Willowblade"]
 position = Vector2( -0.263519, -4.21633 )
@@ -61,7 +64,6 @@ shape = SubResource( 1 )
 
 [node name="TV" type="AnimatedSprite" parent="Willowblade"]
 frames = SubResource( 2 )
-frame = 1
 playing = true
 
 [node name="Detection" type="Area2D" parent="Willowblade"]
@@ -77,6 +79,11 @@ animation = "Angry"
 playing = true
 
 [node name="Willow_SFX" type="AudioStreamPlayer2D" parent="Willowblade"]
+
+[node name="Player" parent="." instance=ExtResource( 12 )]
+position = Vector2( -84.092, 104.336 )
+
+[node name="Weather" parent="." instance=ExtResource( 9 )]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 7.45914, 13.9859 )
