@@ -17,13 +17,13 @@ func scene_goto(scene):
 	if (result == 0):
 		current_scene = scene
 
+func scene_reload():
+# warning-ignore:return_value_discarded
+	get_tree().reload_current_scene()
+
 #Toggle Fullscreen
 func fullscreen():
 	if (OS.is_window_fullscreen() == false):
 		OS.set_window_fullscreen(true)
 	elif (OS.is_window_fullscreen() == true):
 		OS.set_window_fullscreen(false)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

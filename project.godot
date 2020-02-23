@@ -94,5 +94,6 @@ pickup={
 
 [rendering]
 
+quality/intended_usage/framebuffer_allocation=0
 environment/default_clear_color=Color( 0.313726, 0.286275, 0.317647, 1 )
 environment/default_environment="res://default_env.tres"

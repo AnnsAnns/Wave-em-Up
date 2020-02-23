@@ -1,11 +1,12 @@
 extends TileMap
 
-#Direction{UP=0 ,DOWN=1 ,LEFT=2 ,RIGHT=3}
-
 var xSize = 40
 var ySize = 30
 var rng = RandomNumberGenerator.new()
 var start = Vector2.ZERO
+
+export (int)var tilesX = 16
+export (int)var tilesY = 9
 
 var dynImg = Image.new()
 export var tilesLimit = 6
@@ -17,8 +18,6 @@ var END_COLOR = Color.red
 
 var currentTilePos = Vector2.ZERO
 var tilesPlaced = 0
-
-#onready var tileMap = $TileRoot
 
 func _enter_tree():
 	generate()
@@ -34,7 +33,9 @@ func generate():
 	rng.randomize()
 	start.x = (xSize -1) / 2
 	start.y = (ySize-1) / 2
-	position = Vector2((-start.x * 512) - 256, (-start.y * 512)- 256)
+	var tilesXSize = tilesX * (cell_size.x * scale.x)
+	var tilesYSize = tilesY * (cell_size.y * scale.y)
+	position = Vector2((-start.x * tilesXSize) - tilesXSize/2, (-start.y * tilesYSize) - tilesYSize/2)
 	
 	dynImg.create(xSize, ySize, false, Image.FORMAT_RGBA8)
 	dynImg.fill(Color.black)
@@ -53,58 +54,6 @@ func generate():
 		place_tile(currentTilePos,ntdir, tilesPlaced >= tilesLimit)
 	
 	draw_tile_map()
-
-func draw_tile_map():
-	clear()
-	
-	dynImg.lock()
-	
-	for y in range(ySize - 1):
-		for x in range(xSize - 1):
-			var pv = Vector2(x,y)
-			var pc = dynImg.get_pixelv(pv)
-			if pc.b > 0.5:
-				set_cellv(pv, 0)
-	
-	print(dynImg.get_pixelv(currentTilePos))
-	
-	var endid = 3
-	var startid = 6
-	set_cellv(currentTilePos, 0)
-	set_cellv(start, 0)
-	
-	update_bitmask_region()
-	
-	if dynImg.get_pixelv(currentTilePos + Vector2.UP).b > 0.5:
-		endid = 3
-		
-	elif dynImg.get_pixelv(currentTilePos + Vector2.DOWN).b > 0.5:
-		endid = 1
-		
-	elif dynImg.get_pixelv(currentTilePos + Vector2.LEFT).b > 0.5:
-		endid = 4
-		
-	elif dynImg.get_pixelv(currentTilePos + Vector2.RIGHT).b > 0.5:
-		endid = 2
-	
-	if dynImg.get_pixelv(start + Vector2.UP).b > 0.5:
-		startid = 6
-		
-	elif dynImg.get_pixelv(start + Vector2.DOWN).b > 0.5:
-		startid = 5
-		
-	elif dynImg.get_pixelv(start + Vector2.LEFT).b > 0.5:
-		startid = 8
-		
-	elif dynImg.get_pixelv(start + Vector2.RIGHT).b > 0.5:
-		startid = 7
-	
-	set_cellv(currentTilePos, endid)
-	set_cellv(start, startid)
-	
-	dynImg.unlock()
-	
-	update_dirty_quadrants()
 
 func place_tile(p:Vector2, d:int, end:bool):
 	var np = p + Vector2.UP
@@ -140,6 +89,44 @@ func place_tile(p:Vector2, d:int, end:bool):
 	
 	currentTilePos = np
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func draw_tile_map():
+	clear()
+	
+	dynImg.lock()
+	
+	for y in range(ySize - 1):
+		for x in range(xSize - 1):
+			var pv = Vector2(x,y)
+			var pc = dynImg.get_pixelv(pv)
+			pv = Vector2(x * tilesX,y * tilesY)
+			if pc == Color.black:
+				for ntx in range(tilesX):
+					for nty in range(tilesY):
+						var newtilep = Vector2(pv.x + ntx,pv.y + nty)
+						set_cellv(newtilep, 0)
+			else:
+				set_cellv(pv, randi() % 4 + 2)
+	
+	update_bitmask_region()
+	
+	var endid = 7
+	
+	set_cellv(Vector2(start.x * tilesX,start.y * tilesY), 1)
+	
+	if dynImg.get_pixelv(currentTilePos + Vector2.UP).b > 0.5:
+		endid = 8
+		
+	elif dynImg.get_pixelv(currentTilePos + Vector2.DOWN).b > 0.5:
+		endid = 7
+		
+	elif dynImg.get_pixelv(currentTilePos + Vector2.LEFT).b > 0.5:
+		endid = 10
+		
+	elif dynImg.get_pixelv(currentTilePos + Vector2.RIGHT).b > 0.5:
+		endid = 9
+	
+	set_cellv(Vector2(currentTilePos.x * tilesX,currentTilePos.y * tilesY), endid)
+	
+	dynImg.unlock()
+	
+	update_dirty_quadrants()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="Shader" id=4]
 code = "shader_type canvas_item;
  
 ///
@@ -8,8 +8,8 @@ code = "shader_type canvas_item;
 ///
 
 uniform float scan_line_count : hint_range(0, 1080) = 50.0;
-uniform float scroll_speed : hint_range(0.1, 99.9) = 50.0;
- 
+uniform float scroll_speed : hint_range(0, 100) = 50;
+
 vec2 uv_curve(vec2 uv) {
     uv = (uv - 0.5) * 2.0;
     uv.x *= 1.0 + pow(abs(uv.y) / 8.0, 2.0);
@@ -26,17 +26,16 @@ void fragment() {
     float b = texture(SCREEN_TEXTURE, uv_curve(SCREEN_UV) + vec2(SCREEN_PIXEL_SIZE.x*-1.0), 0.0).b;
    
     float s = 0.0;
-   
     s = sin((uv_curve(SCREEN_UV).y + TIME/abs(100.0 - scroll_speed)) * scan_line_count * PI * 2.0);
 
     s = (s * 0.5 + 0.5) * 0.9 + 0.1;
     vec4 scan_line = vec4(vec3(pow(s, 0.25)), 1.0);
-   
+    
     COLOR = vec4(r, g, b, 1.0) * scan_line;
 }"
 
 [sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
+shader = SubResource( 4 )
 shader_param/scan_line_count = 50.0
 shader_param/scroll_speed = 50.0
 
@@ -53,6 +52,7 @@ margin_left = 0.0909424
 margin_top = -2.90918
 margin_right = 1921.09
 margin_bottom = 1087.09
+rect_pivot_offset = Vector2( 301.857, 2641.09 )
 texture = SubResource( 3 )
 expand = true
 __meta__ = {
