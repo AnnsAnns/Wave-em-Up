@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/teampunk_desert_prefx.ogg-1c17b3e2398c07da9f8e24ce66659e2a.oggstr"
+
+[deps]
+
+source_file="res://Assets/Music/teampunk_desert_prefx.ogg"
+dest_files=[ "res://.import/teampunk_desert_prefx.ogg-1c17b3e2398c07da9f8e24ce66659e2a.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
