@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Node2D
 
 signal IsFiring
 signal IsNotFiring
@@ -10,7 +10,11 @@ onready var particles = find_node ("SynthwaveParticle", true, false)
 onready var smooth = find_node ("SmoothRay", true, false)
 onready var direct = find_node ("DirectRay", true, false)
 
+var dead = false
+
 func gun_functions():
+	if dead == true:	return
+	
 	if Input.is_action_pressed("left_mouse"):
 		particles.emitting = true
 		emit_signal("IsFiring")
@@ -27,6 +31,8 @@ func gun_functions():
 		direct.enabled = false
 
 func hit_detection():
+	if dead == true:	return
+	
 	if smooth.enabled == false: return
 	
 	var smoothCol = smooth.get_collider()
@@ -43,9 +49,12 @@ func hit_detection():
 			if directCol != null && directCol.has_method("lose_health"):	directCol.hit = true
 
 func _process(_delta):
+	if dead == true:	return
 	gun_functions()
 
 func _physics_process(delta):
+	if dead == true:	return
+	
 	if smooth == null:
 		return
 	

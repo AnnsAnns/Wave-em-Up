@@ -217,7 +217,7 @@ points = PoolVector2Array( 412, 256, 388, 256, 388, 228, 412, 228 )
 points = PoolVector2Array( 472, 224, 456, 224, 456, 192, 472, 192 )
 
 [sub_resource type="NavigationPolygon" id=70]
-vertices = PoolVector2Array( 0, 4, 0, 92, 96, 92, 100, 96, 100, 152, 104, 156, 192, 156, 196, 160, 196, 288, 512, 288, 512, 132, 384, 132, 380, 128, 380, 0 )
+vertices = PoolVector2Array( 0, 4, 0, 97, 96, 92, 100, 96, 100, 152, 104, 156, 192, 156, 196, 160, 196, 288, 512, 288, 512, 128, 384, 132, 380, 128, 380, 0 )
 polygons = [ PoolIntArray( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ) ]
 
 [sub_resource type="ConvexPolygonShape2D" id=71]

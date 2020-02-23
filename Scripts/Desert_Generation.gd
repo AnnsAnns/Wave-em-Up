@@ -19,8 +19,6 @@ var END_COLOR = Color.red
 var currentTilePos = Vector2.ZERO
 var tilesPlaced = 0
 
-#onready var tileMap = $TileRoot
-
 func _enter_tree():
 	generate()
 

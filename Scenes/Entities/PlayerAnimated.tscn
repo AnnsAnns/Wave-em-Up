@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Assets/Sprites/PlayerSpriteSheet.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Gun.gd" type="Script" id=3]
@@ -15,18 +15,23 @@ var velocity = Vector2()
 var mouse_position
 var player_position
 onready var sprite = $KinematicBody2D/Player_Sprite
+onready var arm_pivot = $KinematicBody2D/AimPivot
+onready var arms = $KinematicBody2D/AimPivot/Arms
 
 signal gain_health
 signal lose_health
 
+var dead = false
+
 func _ready():
 	health = maxHealth
 	$KinematicBody2D/Label.text = \"HP: \" + String(health) + \"/\" + String(maxHealth)
+	dead = false
 
 func get_input():
+	if dead == true:	return
 	velocity = Vector2()
-	#$KinematicBody2D.look_at(get_global_mouse_position())
-	$KinematicBody2D/AimPivot.look_at(get_global_mouse_position())
+	arm_pivot.look_at(get_global_mouse_position())
 	
 	if Input.is_action_pressed('right'):
 		velocity.x += 1
@@ -45,18 +50,19 @@ func get_input():
 		emit_signal(\"lose_health\")
 
 func animate_body():
+	if dead == true:	return
 	#Flip sprite
 	var p = mouse_position.x - player_position.x
 	if p > 0:
 		sprite.flip_h = false
-		$KinematicBody2D/AimPivot/Arms.position.y = 8
-		$KinematicBody2D/AimPivot/Arms.flip_v = false
-		$KinematicBody2D/AimPivot.position.y = 4
+		arms.position.y = 8
+		arms.flip_v = false
+		arm_pivot.position.y = 4
 	else:
 		sprite.flip_h = true
-		$KinematicBody2D/AimPivot/Arms.position.y = -8
-		$KinematicBody2D/AimPivot/Arms.flip_v = true
-		$KinematicBody2D/AimPivot.position.y = -4
+		arms.position.y = -8
+		arms.flip_v = true
+		arm_pivot.position.y = -4
 	
 	#Animate sprite
 	match sprite.flip_h:
@@ -71,35 +77,56 @@ func animate_body():
 			else:	sprite.play(\"Forward\", false)
 
 func _physics_process(_delta):
+	if dead == true:	return
 	get_input()
 	velocity = $KinematicBody2D.move_and_slide(velocity)
 	get_function_based_on_position()
 	animate_body()
 
 func get_function_based_on_position():
+	if dead == true:	return
 	mouse_position = get_global_mouse_position()
 	player_position = $KinematicBody2D.global_position
 
 func _on_AimPivot_IsNotFiring():
-	$KinematicBody2D/AimPivot/Arms.play(\"Normal\",false)
+	if dead == true:	return
+	arms.play(\"Normal\",false)
 
 func _on_AimPivot_IsFiring():
-	$KinematicBody2D/AimPivot/Arms.play(\"Shoot\",false)
+	if dead == true:	return
+	arms.play(\"Shoot\",false)
 
 func _on_Player_gain_health():
+	if dead == true:	return
+	
 	health = clamp(health + 1, 0, maxHealth)
 	$KinematicBody2D/Label.text = \"HP: \" + String(health) + \"/\" + String(maxHealth)
 
 func _on_Player_lose_health():
+	if dead == true:	return
 	health = clamp(health - 1, 0, maxHealth)
 	$KinematicBody2D/Label.text = \"HP: \" + String(health) + \"/\" + String(maxHealth)
 	
-	OS.delay_msec(50)
+	if health <= 0:
+		$KinematicBody2D/Player_Sprite/Shadow.visible = false
+		sprite.play(\"Dead\")
+		dead = true
+		arm_pivot.dead = true
+		arm_pivot.emit_signal(\"IsNotFiring\")
+		arm_pivot.particles.emitting = false
+		arms.play(\"Normal\")
+		if sprite.flip_h == false:
+			arm_pivot.position = Vector2(26, 12)
+			arm_pivot.rotation_degrees = -90
+		else:
+			arm_pivot.position = Vector2(26, -12)
+			arm_pivot.rotation_degrees = 90
+		
+		var death_menu = load(\"res://Scenes/Other Menus/Death Menu.tscn\")
+		var dm_instance = death_menu.instance()
+		dm_instance.set_name(\"Death Menu\")
+		add_child(dm_instance)
 "
-
-[sub_resource type="NoiseTexture" id=24]
-width = 12
-height = 3
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
@@ -153,56 +180,69 @@ region = Rect2( 128, 32, 32, 32 )
 atlas = ExtResource( 2 )
 region = Rect2( 160, 32, 32, 32 )
 
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 64, 32, 32 )
+
 [sub_resource type="SpriteFrames" id=15]
 animations = [ {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
 "name": "Forward",
-"speed": 6.0
+"speed": 12.0
 }, {
 "frames": [ SubResource( 8 ) ],
-"loop": true,
+"loop": false,
 "name": "Idle",
-"speed": 5.0
+"speed": 0.0
 }, {
 "frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
 "loop": true,
 "name": "Backward",
-"speed": 6.0
+"speed": 12.0
+}, {
+"frames": [ SubResource( 24 ) ],
+"loop": false,
+"name": "Dead",
+"speed": 0.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=23]
+[sub_resource type="NoiseTexture" id=16]
+width = 12
+height = 4
+
+[sub_resource type="CapsuleShape2D" id=17]
 radius = 12.0
 height = 32.0
 
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 2 )
-region = Rect2( 192, 32, 32, 32 )
-
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 64, 32, 32 )
+region = Rect2( 192, 32, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 2 )
-region = Rect2( 32, 64, 32, 32 )
+region = Rect2( 0, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 2 )
-region = Rect2( 64, 64, 32, 32 )
+region = Rect2( 32, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 2 )
+region = Rect2( 64, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 2 )
 region = Rect2( 192, 32, 32, 32 )
 
-[sub_resource type="SpriteFrames" id=22]
+[sub_resource type="SpriteFrames" id=23]
 animations = [ {
-"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
+"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ) ],
 "loop": true,
 "name": "Shoot",
 "speed": 60.0
 }, {
-"frames": [ SubResource( 21 ) ],
+"frames": [ SubResource( 22 ) ],
 "loop": true,
 "name": "Normal",
 "speed": 5.0
@@ -213,25 +253,24 @@ script = SubResource( 1 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
 rotation = 1.5708
-
-[node name="Shadow" type="Sprite" parent="KinematicBody2D"]
-modulate = Color( 1, 1, 1, 0.768627 )
-position = Vector2( 31, 0 )
-rotation = -1.5708
-scale = Vector2( 2, 2 )
-texture = SubResource( 24 )
+collision_layer = 5
 
 [node name="Player_Sprite" type="AnimatedSprite" parent="KinematicBody2D"]
 rotation = -1.5708
 scale = Vector2( 2, 2 )
 frames = SubResource( 15 )
 animation = "Idle"
-speed_scale = 2.0
+playing = true
+
+[node name="Shadow" type="Sprite" parent="KinematicBody2D/Player_Sprite"]
+show_behind_parent = true
+position = Vector2( -5.61098e-05, 15.5 )
+texture = SubResource( 16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 4, 0 )
 rotation = 1.5708
-shape = SubResource( 23 )
+shape = SubResource( 17 )
 
 [node name="Camera" type="Camera2D" parent="KinematicBody2D"]
 position = Vector2( 16, 0 )
@@ -245,16 +284,15 @@ drag_margin_top = 0.1
 drag_margin_right = 0.1
 drag_margin_bottom = 0.1
 
-[node name="AimPivot" type="KinematicBody2D" parent="KinematicBody2D"]
+[node name="AimPivot" type="Node2D" parent="KinematicBody2D"]
 position = Vector2( -8, 4 )
-collision_layer = 0
-collision_mask = 0
+rotation = -1.5708
 script = ExtResource( 3 )
 
 [node name="Arms" type="AnimatedSprite" parent="KinematicBody2D/AimPivot"]
 position = Vector2( 20, 8 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 22 )
+frames = SubResource( 23 )
 animation = "Normal"
 playing = true
 
@@ -273,7 +311,7 @@ collision_mask = 2
 
 [node name="SmoothRay" type="RayCast2D" parent="KinematicBody2D/AimPivot/Muzzle"]
 position = Vector2( -16, 0 )
-cast_to = Vector2( 200, 0 )
+cast_to = Vector2( 220, 0 )
 collision_mask = 2
 
 [node name="Label" type="Label" parent="KinematicBody2D"]
