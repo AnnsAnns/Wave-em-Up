@@ -57,6 +57,7 @@
     <Compile Include="Scenes\Effects\LinearFountainParticles.cs" />
     <Compile Include="Scripts\Enums\PredefParticleMaterial.cs" />
     <Compile Include="Scripts\Generate\SceneMapGenerator.cs" />
+    <Compile Include="Scripts\Misc\RandomUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\Generate\" />

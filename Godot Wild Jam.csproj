@@ -56,6 +56,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenes\Effects\LinearFountainParticles.cs" />
     <Compile Include="Scripts\Enums\PredefParticleMaterial.cs" />
+    <Compile Include="Scripts\Generate\SceneMapGenerator.cs" />
+    <Compile Include="Scripts\Misc\RandomUtilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\Generate\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
