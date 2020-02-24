@@ -18,6 +18,7 @@ _global_script_class_icons={
 config/name="Godot Wild Jam"
 run/main_scene="res://Scenes/Main Menu/Main_Menu.tscn"
 boot_splash/image="res://Assets/Jam_Images/wallpaper.png"
+boot_splash/bg_color=Color( 0.054902, 0.117647, 0.180392, 1 )
 config/icon="res://icon.png"
 
 [autoload]
@@ -28,8 +29,13 @@ Singleton="*res://Singletons/Singleton.gd"
 
 window/size/width=1920
 window/size/height=1080
+window/size/resizable=false
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
+
+[gui]
+
+theme/custom_font="res://Assets/FFFont.tres"
 
 [importer_defaults]
 

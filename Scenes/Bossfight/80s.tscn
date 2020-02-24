@@ -1,0 +1,173 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/Bossfight/80s.gd" type="Script" id=1]
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 1
+emission_sphere_radius = 81.91
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 70.0
+scale_random = 0.43
+hue_variation = 1.0
+hue_variation_random = 1.0
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 100.964, 94.0256 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "THingy"
+length = 8.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Pillar:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 292.43, 219.218 ), Vector2( 292.43, 219.218 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Pillar:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Pillar2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1651.13, 248.755 ), Vector2( 1651.13, 248.755 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Pillar2:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Pillar3:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 315.151, 846.311 ), Vector2( 315.151, 846.311 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Pillar3:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Pillar4:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1639.77, 850.856 ), Vector2( 1639.77, 850.856 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Pillar4:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+
+[node name="80sAttack" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Pillar" type="Particles2D" parent="."]
+position = Vector2( 292.43, 219.218 )
+scale = Vector2( 0.24059, 0.24059 )
+amount = 32
+process_material = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="Pillar"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pillar/Area2D"]
+shape = SubResource( 2 )
+
+[node name="Pillar2" type="Particles2D" parent="."]
+position = Vector2( 1651.13, 248.755 )
+scale = Vector2( 0.12174, 0.12174 )
+amount = 32
+process_material = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="Pillar2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pillar2/Area2D"]
+shape = SubResource( 2 )
+
+[node name="Pillar3" type="Particles2D" parent="."]
+position = Vector2( 315.151, 846.311 )
+scale = Vector2( 0.214154, 0.214154 )
+amount = 32
+process_material = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="Pillar3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pillar3/Area2D"]
+shape = SubResource( 2 )
+
+[node name="Pillar4" type="Particles2D" parent="."]
+position = Vector2( 1639.77, 850.856 )
+scale = Vector2( 0.11432, 0.11432 )
+amount = 32
+process_material = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="Pillar4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pillar4/Area2D"]
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/THingy = SubResource( 3 )
+[connection signal="body_entered" from="Pillar/Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_entered" from="Pillar2/Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_entered" from="Pillar3/Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_entered" from="Pillar4/Area2D" to="." method="_on_Area2D_body_entered"]
