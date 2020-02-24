@@ -1,13 +1,8 @@
 extends Control
 
-func _on_Play_button_up():
-	Singleton.scene_goto(Singleton.desert_level)
+var x = false
 
-func _on_Options_button_up():
-	Singleton.scene_goto("res://Scenes/Main Menu/Options.tscn")
-
-func _on_Credits_button_up():
-	pass # Replace with function body.
-
-func _on_Quit_button_up():
-	get_tree().quit()
+# warning-ignore:unused_argument
+func _process(delta):
+	if Input.is_action_pressed("pickup"):
+		Singleton.scene_goto(Singleton.desert_level)

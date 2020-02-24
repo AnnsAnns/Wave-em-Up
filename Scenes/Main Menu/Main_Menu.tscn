@@ -27,11 +27,8 @@ position = Vector2( 689.219, 1157.05 )
 scale = Vector2( 2.91443, 2.91443 )
 texture = ExtResource( 5 )
 
-[node name="Flash" type="Timer" parent="."]
-autostart = true
-
 [node name="Credits" type="Sprite" parent="."]
-position = Vector2( 1574.88, 899.865 )
+position = Vector2( 1558.14, 807.811 )
 scale = Vector2( 1.78586, 1.78586 )
 texture = ExtResource( 4 )
 
@@ -41,4 +38,3 @@ autoplay = true
 
 [node name="Loading" parent="." instance=ExtResource( 6 )]
 visible = false
-[connection signal="timeout" from="Flash" to="." method="_on_Flash_timeout"]
