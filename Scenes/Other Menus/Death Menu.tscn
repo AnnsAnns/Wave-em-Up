@@ -5,34 +5,11 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
 
-onready var reload = $Load
-
-var q = -1
-
-func _ready():
-	q = -1
-	reload.margin_right = 0
-
 func _on_Retry_button_up():
-	q = 1
+	Singleton.scene_goto(-1)
 
 func _on_Quit_button_up():
-	q = 2
-
-func _process(delta):
-	if q <= 0:	return
-	get_tree().paused = false
-	
-	reload.margin_right = lerp(reload.margin_right, 2000, delta * 10)
-	if reload.margin_right >= 1981:
-		match q:
-			1:
-				get_tree().reload_current_scene()
-			2:
-				$\"/root/Singleton\".scene_goto($\"/root/Singleton\".main_menu)
-		
-		q = -1
-		
+	Singleton.scene_goto(Singleton.main_menu)
 "
 
 [node name="CanvasLayer" type="CanvasLayer"]
@@ -94,12 +71,5 @@ margin_right = 500.0
 margin_bottom = 281.0
 custom_fonts/font = ExtResource( 2 )
 text = "no :("
-
-[node name="Load" type="Panel" parent="Death Menu"]
-modulate = Color( 0, 0, 0, 1 )
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 [connection signal="button_up" from="Death Menu/VBoxContainer/Retry" to="Death Menu" method="_on_Retry_button_up"]
 [connection signal="button_up" from="Death Menu/VBoxContainer/Quit" to="Death Menu" method="_on_Quit_button_up"]

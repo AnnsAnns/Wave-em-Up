@@ -1,0 +1,91 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/Sprites/Loading_Screen.png" type="Texture" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.101961, 0.0627451, 0.164706, 1 )
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Panel
+
+onready var image = $Image
+
+var q = -1
+var load_image = false
+var start_load = false
+var sl = false
+
+func _enter_tree():
+	if sl == true:
+		margin_right = 1920
+		sl = false
+		start_load = true
+		load_image = false
+		image.self_modulate = Color(2,2,2,5)
+
+func _ready():
+	load_image = false
+	start_load = false
+
+func start_loading():
+	q = 2
+	sl = true
+	load_image = false
+	margin_right = 0
+	image.self_modulate = Color(1,1,1,0)
+
+func _process(delta):
+	if start_load == true:
+		var c = image.self_modulate
+		c = lerp(c, Color.white * -0.1, 6*delta) 
+		image.self_modulate = c
+		if c.a <= 0.05:
+			c.a = 0
+			margin_right = lerp(margin_right, -100, delta * 10)
+			if margin_right <= 0:
+				margin_right = 0
+				start_load = false
+	
+	if q <= 0:	return
+	
+	if load_image == true:
+		var c = image.self_modulate
+		c = lerp(c, Color.white, 10*delta) 
+		image.self_modulate = c
+		if c.a >= 0.95:
+			c.a = 1
+			q = -1
+		return
+	
+	get_tree().paused = false
+	
+	margin_right = lerp(margin_right, 2000, delta * 10)
+	if margin_right >= 1981:
+		margin_right = 1920
+		load_image = true
+"
+
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 0, 512, 288 )
+
+[node name="Loading Screen CL" type="CanvasLayer"]
+layer = 8
+
+[node name="Loading Screen" type="Panel" parent="."]
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+script = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Image" type="Panel" parent="Loading Screen"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( -1921.96, 415 )
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

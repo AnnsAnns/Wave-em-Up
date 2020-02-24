@@ -5,6 +5,8 @@ var ySize = 30
 var rng = RandomNumberGenerator.new()
 var start = Vector2.ZERO
 
+onready var enemy_spawner = load("res://Scenes/Entities/Enemy_Spawner.tscn")
+
 export (int)var tilesX = 16
 export (int)var tilesY = 9
 
@@ -19,12 +21,8 @@ var END_COLOR = Color.red
 var currentTilePos = Vector2.ZERO
 var tilesPlaced = 0
 
-func _enter_tree():
+func _ready():
 	generate()
-
-func _input(event):
-	if event.is_action_pressed("ui_accept"):
-		generate()
 
 func generate():
 	dynImg = Image.new()
@@ -105,7 +103,41 @@ func draw_tile_map():
 						var newtilep = Vector2(pv.x + ntx,pv.y + nty)
 						set_cellv(newtilep, 0)
 			else:
-				set_cellv(pv, randi() % 4 + 2)
+
+				var ntm = randi() % 4 + 2
+				set_cellv(pv, ntm)
+				
+				if pc == PATH_COLOR:
+					var es = enemy_spawner.instance()
+					get_parent().get_parent().call_deferred("add_child",es)
+					es.add_to_group("Spawner")
+
+					var newP = Vector2((x - start.x) * 512,(y - start.y) * 288)
+					newP = newP * 2
+					newP.x -= 512
+					newP.y -= 288
+					var randOffset = Vector2(randi() % 1024,randi() % 432)
+					randOffset.x = clamp(randOffset.x, 64, 960)
+					randOffset.y = clamp(randOffset.y, 64, 368)
+					match ntm:
+						2:
+							es.global_position = newP + randOffset
+						3:
+							randOffset.x = clamp(randOffset.x, 64, 960)
+							randOffset.y = clamp(randOffset.y, 64, 158)
+							es.global_position = newP + randOffset
+						4:
+							randOffset.x = clamp(randOffset.x, 64, 384)
+							randOffset.y = clamp(randOffset.y, 64, 170)
+							es.global_position = newP + randOffset
+						5:
+							randOffset.x = clamp(randOffset.x, 64, 640)
+							randOffset.y = clamp(randOffset.y, 64, 152)
+							es.global_position = newP + randOffset
+						6:
+							randOffset.x = clamp(randOffset.x, 512, 512)
+							randOffset.y = clamp(randOffset.y, 288, 288)
+							es.global_position = newP + randOffset
 	
 	update_bitmask_region()
 	

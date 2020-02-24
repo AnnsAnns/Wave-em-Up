@@ -19,8 +19,9 @@ orbit_velocity_random = 0.0
 damping = 100.0
 damping_curve = SubResource( 2 )
 scale = 8.0
-hue_variation = 1.0
-hue_variation_random = 1.0
+color = Color( 0.968627, 0.282353, 0.901961, 1 )
+hue_variation = -0.05
+hue_variation_random = 0.8
 
 [node name="SynthwaveParticle" type="Particles2D"]
 amount = 300

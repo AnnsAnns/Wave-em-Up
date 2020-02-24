@@ -12,8 +12,8 @@ export (float) var atkRange = 160
 export (float) var atkDelay = 0.1
 export (float) var canAtkDelay = 0.2
 
-onready var player = $"../Player/KinematicBody2D"
-onready var nav = $"../Navigation"
+var player
+var nav
 onready var sprite = $Sprite
 onready var detection = $Detection
 onready var hitting = $Hit
@@ -33,6 +33,10 @@ var can_atk = true
 var in_range = false
 
 var d = false
+
+func _enter_tree():
+	player = $"../Player/KinematicBody2D"
+	nav = $"../Navigation"
 
 func _ready():
 	add_child(atk_timer)
@@ -60,6 +64,12 @@ func _process(delta):
 	if hit == true:	lose_health()
 
 func _physics_process(delta):
+	if player == null:
+		player = $"../Player/KinematicBody2D"
+		nav = $"../Navigation"
+		return
+	
+	
 	if d == true:
 		hitting.get_child(0).disabled = true
 		d = false
@@ -123,6 +133,8 @@ func lose_health():
 		atk_dir = -(player.global_position - global_position).normalized()
 		$Sprite/Shadow.visible = false
 		$Label.visible = false
+		$CollisionShape2D.disabled = true
+		if get_parent().has_method("enemy_killed"):	get_parent().enemy_killed()
 
 func prepare_attack():
 	if state == -1:	return
@@ -162,3 +174,9 @@ func _on_Hit_body_entered(body):
 	
 	player.get_parent().emit_signal("lose_health")
 	d = true
+
+func kill():
+	health = -1
+	hit = true
+	t = -1
+	lose_health()
