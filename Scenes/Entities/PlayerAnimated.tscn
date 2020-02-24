@@ -1,9 +1,11 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/PlayerSpriteSheet.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Gun.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Shaders/SynthwaveParticle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Sprites/Player_Bar.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Sprites/Player_BarFILL.png" type="Texture" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -88,6 +90,38 @@ animations = [ {
 width = 12
 height = 4
 
+[sub_resource type="Curve" id=48]
+min_value = -360.0
+max_value = 360.0
+_data = [ Vector2( 0, 0 ), 0.0, 1008.0, 0, 0, Vector2( 1, 360 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=49]
+curve = SubResource( 48 )
+
+[sub_resource type="Curve" id=45]
+_data = [ Vector2( 0, 1 ), 0.0, -0.0426132, 0, 0, Vector2( 1, 0 ), -0.0915693, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=46]
+width = 128
+curve = SubResource( 45 )
+
+[sub_resource type="ParticlesMaterial" id=47]
+lifetime_randomness = 0.4
+emission_shape = 2
+emission_box_extents = Vector3( 8, 16, 0 )
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 360.0
+angle_random = 1.0
+angle_curve = SubResource( 49 )
+scale = 6.0
+scale_curve = SubResource( 46 )
+color = Color( 0.694118, 0.176471, 0.588235, 1 )
+
 [sub_resource type="CapsuleShape2D" id=17]
 radius = 12.0
 height = 32.0
@@ -125,13 +159,264 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="StyleBoxFlat" id=53]
+bg_color = Color( 0.466667, 0.470588, 0.937255, 1 )
+
+[sub_resource type="StyleBoxFlat" id=54]
+bg_color = Color( 0.0313726, 0, 0.113725, 1 )
+
+[sub_resource type="BitmapFont" id=52]
+
+[sub_resource type="StyleBoxFlat" id=50]
+bg_color = Color( 0.882353, 0.376471, 0.403922, 1 )
+
+[sub_resource type="StyleBoxFlat" id=51]
+bg_color = Color( 0.121569, 0, 0.0313726, 1 )
+
+[sub_resource type="VisualShaderNodeCompare" id=29]
+function = 5
+
+[sub_resource type="VisualShaderNodeSwitch" id=30]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=31]
+default_input_values = [ 0, 0.0, 1, 100.0 ]
+operator = 3
+
+[sub_resource type="VisualShaderNodeCompare" id=32]
+function = 5
+
+[sub_resource type="VisualShaderNodeSwitch" id=33]
+
+[sub_resource type="VisualShaderNodeScalarUniform" id=34]
+uniform_name = "Stamina"
+
+[sub_resource type="VisualShaderNodeScalarClamp" id=35]
+
+[sub_resource type="VisualShaderNodeScalarInterp" id=36]
+
+[sub_resource type="VisualShaderNodeScalarInterp" id=37]
+
+[sub_resource type="VisualShaderNodeTexture" id=38]
+source = 2
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeScalarOp" id=39]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=40]
+operator = 2
+
+[sub_resource type="VisualShaderNodeScalarClamp" id=41]
+
+[sub_resource type="VisualShaderNodeTexture" id=25]
+texture = ExtResource( 6 )
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id=26]
+
+[sub_resource type="VisualShaderNodeScalarUniform" id=42]
+uniform_name = "Health"
+
+[sub_resource type="VisualShaderNodeScalarClamp" id=43]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=44]
+default_input_values = [ 0, 0.0, 1, 6.0 ]
+operator = 3
+
+[sub_resource type="VisualShader" id=27]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform sampler2D tex_frg_3 : hint_albedo;uniform float Stamina;
+uniform float Health;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Texture:20
+	vec3 n_out20p0;
+	float n_out20p1;
+	{
+		vec4 _tex_read = texture( TEXTURE , UV.xy );
+		n_out20p0 = _tex_read.rgb;
+		n_out20p1 = _tex_read.a;
+	}
+
+// Texture:3
+	vec3 n_out3p0;
+	float n_out3p1;
+	vec4 tex_frg_3_read = texture( tex_frg_3 , UV.xy );
+	n_out3p0 = tex_frg_3_read.rgb;
+	n_out3p1 = tex_frg_3_read.a;
+
+// VectorDecompose:4
+	float n_out4p0;
+	float n_out4p1;
+	float n_out4p2;
+	n_out4p0 = n_out3p0.x;
+	n_out4p1 = n_out3p0.y;
+	n_out4p2 = n_out3p0.z;
+
+// ScalarOp:22
+	float n_out22p0;
+	n_out22p0 = n_out4p2 * n_out3p1;
+
+// ScalarUniform:16
+	float n_out16p0;
+	n_out16p0 = Stamina;
+
+// ScalarOp:13
+	float n_in13p1 = 100.00000;
+	float n_out13p0;
+	n_out13p0 = n_out16p0 / n_in13p1;
+
+// ScalarClamp:17
+	float n_in17p2 = 1.00000;
+	float n_out17p0;
+	n_out17p0 = clamp( n_out4p0, n_out13p0, n_in17p2 );
+
+// Compare:14
+	bool n_out14p0;
+	n_out14p0=n_out17p0<=n_out13p0;
+
+// VectorSwitch:15
+	vec3 n_in15p1 = vec3(1.00000,1.00000,1.00000);
+	vec3 n_out15p0;
+	if(n_out14p0)
+	{
+		n_out15p0=n_in15p1;
+	}
+	else
+	{
+		n_out15p0=vec3(n_out4p2);
+	}
+
+// ScalarUniform:5
+	float n_out5p0;
+	n_out5p0 = Health;
+
+// ScalarOp:7
+	float n_in7p1 = 6.00000;
+	float n_out7p0;
+	n_out7p0 = n_out5p0 / n_in7p1;
+
+// ScalarClamp:6
+	float n_in6p2 = 1.00000;
+	float n_out6p0;
+	n_out6p0 = clamp( n_out4p1, n_out7p0, n_in6p2 );
+
+// Compare:10
+	bool n_out10p0;
+	n_out10p0=n_out6p0<=n_out7p0;
+
+// VectorSwitch:11
+	vec3 n_in11p1 = vec3(1.00000,1.00000,1.00000);
+	vec3 n_in11p2 = vec3(0.00000,0.00000,0.00000);
+	vec3 n_out11p0;
+	if(n_out10p0)
+	{
+		n_out11p0=n_in11p1;
+	}
+	else
+	{
+		n_out11p0=n_in11p2;
+	}
+
+// ScalarMix:18
+	float n_in18p0 = 0.00000;
+	float n_out18p0;
+	n_out18p0 = mix( n_in18p0 , dot(n_out11p0,vec3(0.333333,0.333333,0.333333)) , n_out3p1 );
+
+// ScalarMix:19
+	float n_in19p0 = 0.00000;
+	float n_out19p0;
+	n_out19p0 = mix( n_in19p0 , dot(n_out15p0,vec3(0.333333,0.333333,0.333333)) , n_out18p0 );
+
+// ScalarOp:21
+	float n_out21p0;
+	n_out21p0 = n_out22p0 + n_out19p0;
+
+// ScalarClamp:23
+	float n_in23p1 = 0.00000;
+	float n_in23p2 = 1.00000;
+	float n_out23p0;
+	n_out23p0 = clamp( n_out21p0, n_in23p1, n_in23p2 );
+
+// Output:0
+	COLOR.rgb = n_out20p0;
+	COLOR.a = n_out23p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( 965.087, -99 )
+mode = 1
+flags/light_only = false
+flags/unshaded = true
+nodes/fragment/0/position = Vector2( 1940, 80 )
+nodes/fragment/3/node = SubResource( 25 )
+nodes/fragment/3/position = Vector2( -320, 60 )
+nodes/fragment/4/node = SubResource( 26 )
+nodes/fragment/4/position = Vector2( -80, 220 )
+nodes/fragment/5/node = SubResource( 42 )
+nodes/fragment/5/position = Vector2( -100, 360 )
+nodes/fragment/6/node = SubResource( 43 )
+nodes/fragment/6/position = Vector2( 360, 260 )
+nodes/fragment/7/node = SubResource( 44 )
+nodes/fragment/7/position = Vector2( 140, 300 )
+nodes/fragment/10/node = SubResource( 29 )
+nodes/fragment/10/position = Vector2( 540, 300 )
+nodes/fragment/11/node = SubResource( 30 )
+nodes/fragment/11/position = Vector2( 780, 360 )
+nodes/fragment/13/node = SubResource( 31 )
+nodes/fragment/13/position = Vector2( 190.587, -8 )
+nodes/fragment/14/node = SubResource( 32 )
+nodes/fragment/14/position = Vector2( 590.587, -8 )
+nodes/fragment/15/node = SubResource( 33 )
+nodes/fragment/15/position = Vector2( 830.587, 52 )
+nodes/fragment/16/node = SubResource( 34 )
+nodes/fragment/16/position = Vector2( -49.4129, 52 )
+nodes/fragment/17/node = SubResource( 35 )
+nodes/fragment/17/position = Vector2( 380, -80 )
+nodes/fragment/18/node = SubResource( 36 )
+nodes/fragment/18/position = Vector2( 1060, 240 )
+nodes/fragment/19/node = SubResource( 37 )
+nodes/fragment/19/position = Vector2( 1280, 180 )
+nodes/fragment/20/node = SubResource( 38 )
+nodes/fragment/20/position = Vector2( 1420, -40 )
+nodes/fragment/21/node = SubResource( 39 )
+nodes/fragment/21/position = Vector2( 1460, 100 )
+nodes/fragment/22/node = SubResource( 40 )
+nodes/fragment/22/position = Vector2( 620, 140 )
+nodes/fragment/23/node = SubResource( 41 )
+nodes/fragment/23/position = Vector2( 1680, 120 )
+nodes/fragment/connections = PoolIntArray( 3, 0, 4, 0, 4, 1, 6, 0, 5, 0, 7, 0, 7, 0, 6, 1, 6, 0, 10, 0, 7, 0, 10, 1, 10, 0, 11, 0, 16, 0, 13, 0, 13, 0, 14, 1, 14, 0, 15, 0, 13, 0, 17, 1, 4, 0, 17, 0, 17, 0, 14, 0, 11, 0, 18, 1, 3, 1, 18, 2, 18, 0, 19, 2, 15, 0, 19, 1, 20, 0, 0, 0, 19, 0, 21, 1, 4, 2, 15, 2, 3, 1, 22, 1, 4, 2, 22, 0, 22, 0, 21, 0, 21, 0, 23, 0, 23, 0, 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=28]
+render_priority = 34
+shader = SubResource( 27 )
+shader_param/Stamina = 50.0
+shader_param/Health = 3.0
+
+[sub_resource type="StyleBoxTexture" id=24]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 85, 41 )
+
 [node name="Player" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
 rotation = 1.5708
 z_index = 1
-collision_layer = 5
+collision_layer = 517
 
 [node name="Player_Sprite" type="AnimatedSprite" parent="KinematicBody2D"]
 rotation = -1.5708
@@ -144,6 +429,11 @@ playing = true
 show_behind_parent = true
 position = Vector2( -5.61098e-05, 15.5 )
 texture = SubResource( 16 )
+
+[node name="EvadeParticles" type="Particles2D" parent="KinematicBody2D/Player_Sprite"]
+amount = 10
+local_coords = false
+process_material = SubResource( 47 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 4, 0 )
@@ -193,15 +483,78 @@ position = Vector2( -16, 0 )
 cast_to = Vector2( 220, 0 )
 collision_mask = 2
 
-[node name="Label" type="Label" parent="KinematicBody2D"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = -40.0
-margin_right = 10.0
-margin_bottom = 14.0
+[node name="StaminaBar" type="ProgressBar" parent="KinematicBody2D"]
+anchor_right = 0.427
+margin_left = 36.2787
+margin_top = 29.0
+margin_right = 230.279
+margin_bottom = 51.0
 rect_rotation = -90.0
-text = "HP: 1"
-align = 1
-valign = 1
+rect_scale = Vector2( 0.3, 0.2 )
+mouse_filter = 2
+custom_styles/fg = SubResource( 53 )
+custom_styles/bg = SubResource( 54 )
+custom_fonts/font = SubResource( 52 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBar" type="ProgressBar" parent="KinematicBody2D"]
+anchor_right = 0.427
+margin_left = 41.5934
+margin_top = 29.0
+margin_right = 235.593
+margin_bottom = 51.0
+rect_rotation = -90.0
+rect_scale = Vector2( 0.3, 0.2 )
+mouse_filter = 2
+custom_styles/fg = SubResource( 50 )
+custom_styles/bg = SubResource( 51 )
+custom_fonts/font = SubResource( 52 )
+max_value = 6.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player_UI" type="CanvasLayer" parent="."]
+
+[node name="UI_Bar" type="Panel" parent="Player_UI"]
+material = SubResource( 28 )
+anchor_left = 0.075
+anchor_top = 0.075
+anchor_right = 0.075
+anchor_bottom = 0.075
+margin_right = 255.0
+margin_bottom = 123.0
+custom_styles/panel = SubResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UI_Back" type="Panel" parent="Player_UI/UI_Bar"]
+self_modulate = Color( 0.164706, 0, 0.12549, 1 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+custom_styles/panel = SubResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UI_Back2" type="Panel" parent="Player_UI/UI_Bar"]
+self_modulate = Color( 0.164706, 0, 0.12549, 1 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.76619
+margin_top = -0.487671
+margin_right = -2.76619
+margin_bottom = -0.487671
+grow_horizontal = 0
+grow_vertical = 0
+custom_styles/panel = SubResource( 24 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

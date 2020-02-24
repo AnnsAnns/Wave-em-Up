@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Fonts/Menu_Font.tres" type="DynamicFont" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+func _on_Quit_button_up():
+	Singleton.scene_goto(Singleton.main_menu)
+"
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Death Menu" type="Control" parent="."]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Death Menu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -240.0
+margin_top = -250.0
+margin_right = 260.0
+margin_bottom = 390.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu Label" type="Label" parent="Death Menu/VBoxContainer"]
+margin_right = 500.0
+margin_bottom = 95.0
+custom_fonts/font = ExtResource( 2 )
+text = "GAME COMPLETE
+sorry if it was disappointing"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator2" type="HSeparator" parent="Death Menu/VBoxContainer"]
+margin_top = 99.0
+margin_right = 500.0
+margin_bottom = 139.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="Quit" type="Button" parent="Death Menu/VBoxContainer"]
+margin_top = 143.0
+margin_right = 500.0
+margin_bottom = 195.0
+custom_fonts/font = ExtResource( 2 )
+text = "Click here"
+[connection signal="button_up" from="Death Menu/VBoxContainer/Quit" to="Death Menu" method="_on_Quit_button_up"]

@@ -52,7 +52,6 @@ func _ready():
 	can_atk_timer.wait_time=canAtkDelay
 	
 	health = maxHealth
-	$Label.text = "HP: " + String(health)
 	t = 0.1
 	
 	state = AI_STATE.CHASE
@@ -120,7 +119,6 @@ func lose_health():
 	if hit == false:	return
 	
 	health = clamp(health - 1, 0, maxHealth)
-	$Label.text = "HP: " + String(health)
 	t = 0.1
 	hit = false
 	if health <= 0:
@@ -132,7 +130,6 @@ func lose_health():
 		aspd = speed
 		atk_dir = -(player.global_position - global_position).normalized()
 		$Sprite/Shadow.visible = false
-		$Label.visible = false
 		$CollisionShape2D.disabled = true
 		if get_parent().has_method("enemy_killed"):	get_parent().enemy_killed()
 

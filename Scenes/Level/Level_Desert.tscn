@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/Shaders/CRT_Monitor.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Entities/Desert_Tile.tscn" type="PackedScene" id=3]
@@ -18,31 +18,81 @@ script/source = "extends WorldEnvironment
 var enemies_killed = 0
 export (int, 1, 1000) var kill_goal = 30
 
+var end_position := Vector2()
+
+onready var goal = load(\"res://Scenes/Entities/Desert_Goal.tscn\")
+onready var label = $CanvasLayer/GoalLabel
+
 func _ready():
 	enemies_killed = 0
+	label.text = \"> ENEMIES KILLED: \" + String(enemies_killed) + \"/\" + String(kill_goal) +\"\\n\"
+	$CanvasLayer/GoalLabel/StrikeThrough.visible = false
 
 func enemy_killed():
 	enemies_killed += 1
+	label.text = \"> ENEMIES KILLED: \" + String(enemies_killed) + \"/\" + String(kill_goal) +\"\\n\"
+	
 	if enemies_killed >= kill_goal:
 		for spawner in get_tree().get_nodes_in_group(\"Spawner\"):
 			spawner.queue_free()
 		for enemy in get_tree().get_nodes_in_group(\"Enemy\"):
 			enemy.call_deferred(\"kill\")
+		var g = goal.instance()
+		self.add_child(g)
+		g.global_position = end_position
+		label.text = \"> ENEMIES KILLED: \" + String(kill_goal) + \"/\" + String(kill_goal) +\"\\n\" +\"> FIND THE CAR\"
+		$CanvasLayer/GoalLabel/StrikeThrough.visible = true
 
 "
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 1, 1, 1 )
 
 [node name="Desert" type="WorldEnvironment" groups=[
 "Root",
 ]]
 environment = SubResource( 1 )
 script = SubResource( 2 )
-kill_goal = 1
 
 [node name="Navigation" type="Navigation2D" parent="."]
 
 [node name="TileRoot" parent="Navigation" instance=ExtResource( 3 )]
+tilesLimit = 9
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 16, 208 )
 
 [node name="80s Shader CRT" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0.735107, 0 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GoalLabel" type="Label" parent="CanvasLayer"]
+anchor_left = 0.085
+anchor_top = 0.145
+anchor_right = 0.2
+anchor_bottom = 0.2
+margin_left = 2.09061
+margin_top = 0.418121
+margin_right = 31.2906
+margin_bottom = 0.418121
+custom_colors/font_color = Color( 0.984314, 0.517647, 0.901961, 1 )
+custom_colors/font_color_shadow = Color( 0.290196, 0, 1, 1 )
+text = "> ENEMIES KILLED: 0/30"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StrikeThrough" type="Panel" parent="CanvasLayer/GoalLabel"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = 6.0
+margin_right = 16.0
+margin_bottom = -48.0
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

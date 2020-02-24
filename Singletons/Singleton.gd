@@ -3,6 +3,8 @@ extends Tree
 #Variable Declarations
 onready var main_menu = "res://Scenes/Main Menu/Main_Menu.tscn"
 onready var desert_level = "res://Scenes/Level/Level_Desert.tscn"
+onready var endless_level = "res://Scenes/Other Menus/Level_Endless.tscn"
+onready var clear_level = "res://Scenes/Other Menus/Game_Clear.tscn"
 #onready var boss_level = "res://Scenes/Level/Level_Desert"
 var current_scene = null
 

@@ -1,8 +1,11 @@
 extends Node2D
 
+var baseSpeed
+
 export (int) var speed = 400
 export (int) var maxHealth = 6
 var health = maxHealth
+var stamina = 100
 
 var velocity = Vector2()
 var mouse_position
@@ -11,6 +14,9 @@ onready var sprite = $KinematicBody2D/Player_Sprite
 onready var arm_pivot = $KinematicBody2D/AimPivot
 onready var arms = $KinematicBody2D/AimPivot/Arms
 onready var muzzle = $KinematicBody2D/AimPivot/Muzzle
+var ui
+
+var evading = false
 
 # warning-ignore:unused_signal
 signal gain_health
@@ -21,8 +27,17 @@ var dead = false
 
 func _ready():
 	health = maxHealth
-	$KinematicBody2D/Label.text = "HP: " + String(health) + "/" + String(maxHealth)
 	dead = false
+	
+	$KinematicBody2D/Player_Sprite/EvadeParticles.emitting = false
+	ui = $Player_UI/UI_Bar.material
+	ui.set_shader_param("Health",health)
+	ui.set_shader_param("Stamina",stamina)
+	sprite.self_modulate = Color.white
+	$KinematicBody2D/StaminaBar.value = stamina
+	$KinematicBody2D/HealthBar.value = health
+	
+	baseSpeed = speed
 
 func get_input():
 	if dead == true:	return
@@ -38,10 +53,23 @@ func get_input():
 	if Input.is_action_pressed('up'):
 		velocity.y -= 1
 	velocity = velocity.normalized() * speed
+	
+	if stamina > 0 && Input.is_action_just_pressed("evade"):
+		evading = true
+		$KinematicBody2D/Player_Sprite/EvadeParticles.emitting = true
+	elif Input.is_action_just_released("evade"):
+		evading = false
 
 func animate_body():
 	if dead == true:	return
 	#Flip sprite
+	if evading == true:
+		sprite.speed_scale = 1.2
+		sprite.self_modulate = Color.hotpink
+	else:
+		sprite.speed_scale = 1.0
+		sprite.self_modulate = Color.white
+	
 	var p = mouse_position.x - player_position.x
 	if p > 0:
 		sprite.flip_h = false
@@ -68,12 +96,24 @@ func animate_body():
 			elif velocity == Vector2.ZERO:	sprite.play("Idle", false)
 			else:	sprite.play("Forward", false)
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	if dead == true:	return
 	get_input()
 	velocity = $KinematicBody2D.move_and_slide(velocity)
 	get_function_based_on_position()
 	animate_body()
+	
+	if evading == true:
+		stamina =clamp(stamina - (delta * 100), 0, 100)
+		speed = baseSpeed * 1.2
+		
+		if stamina <= 0:	evading = false
+	else:
+		$KinematicBody2D/Player_Sprite/EvadeParticles.emitting = false
+		stamina =clamp(stamina +(delta * 15), 0, 100)
+		speed = baseSpeed
+	ui.set_shader_param("Stamina",stamina)
+	$KinematicBody2D/StaminaBar.value = stamina
 
 func get_function_based_on_position():
 	if dead == true:	return
@@ -92,13 +132,17 @@ func _on_Player_gain_health():
 	if dead == true:	return
 	
 	health = clamp(health + 1, 0, maxHealth)
-	$KinematicBody2D/Label.text = "HP: " + String(health) + "/" + String(maxHealth)
+	ui.set_shader_param("Health",health)
+	$KinematicBody2D/HealthBar.value = health
 
 func _on_Player_lose_health():
 	if dead == true:	return
-	health = clamp(health - 1, 0, maxHealth)
-	$KinematicBody2D/Label.text = "HP: " + String(health) + "/" + String(maxHealth)
+	if evading == true:	return
 	
+	health = clamp(health - 1, 0, maxHealth)
+	ui.set_shader_param("Health",health)
+	$KinematicBody2D/HealthBar.value = health
+
 	if health <= 0:
 		$KinematicBody2D/Player_Sprite/Shadow.visible = false
 		sprite.play("Dead")

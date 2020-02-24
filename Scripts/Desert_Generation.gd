@@ -107,6 +107,11 @@ func draw_tile_map():
 				var ntm = randi() % 4 + 2
 				set_cellv(pv, ntm)
 				
+				if pc == END_COLOR:
+					var newP = Vector2((x - start.x) * 512,(y - start.y) * 288)
+					newP = newP * 2
+					get_parent().get_parent().end_position = newP
+				
 				if pc == PATH_COLOR:
 					var es = enemy_spawner.instance()
 					get_parent().get_parent().call_deferred("add_child",es)

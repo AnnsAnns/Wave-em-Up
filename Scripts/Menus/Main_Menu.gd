@@ -1,8 +1,10 @@
 extends Control
 
-var x = false
+func _on_Play_button_up():
+	Singleton.scene_goto(Singleton.desert_level)
 
-# warning-ignore:unused_argument
-func _process(delta):
-	if Input.is_action_pressed("pickup"):
-		Singleton.scene_goto(Singleton.desert_level)
+func _on_Quit_button_up():
+	get_tree().quit()
+
+func _on_Fullscreen_pressed():
+	OS.window_fullscreen = $Fullscreen.pressed
