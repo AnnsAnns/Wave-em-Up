@@ -1,9 +1,35 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=14 format=2]
 
+[ext_resource path="res://Assets/FFFFORWA.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://Fonts/Menu_Font.tres" type="DynamicFont" id=2]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
+
+func _enter_tree():
+	var txt = \"YOU DIED\"
+	var t = randi() % 10
+	match t:
+		1:
+			txt = \"YOU IS KIL\"
+		2:
+			txt = \"MISSION FAILED\"
+		3:
+			txt = \"TIME TO ABANDON SHIP\"
+		4:
+			txt = \"THESE 80'S PEOPLE ARE FLUENT IN OVER 1000 WAYS OF KICKING YOUR ASS\"
+		5:
+			txt = \"FUN FACT: PACMAN ARCADE WAS CREATED IN THE 80'S\"
+		6:
+			txt = \"...\"
+		7:
+			txt = \"F\"
+		8:
+			txt = \"WELL YOU TRIED YOUR BEST\"
+		9:
+			txt = \"SO YOU HAVE CHOSEN DEATH\"
+	
+	$\"VBoxContainer/Menu Label\".text = txt
 
 func _on_Retry_button_up():
 	Singleton.scene_goto(-1)
@@ -11,6 +37,40 @@ func _on_Retry_button_up():
 func _on_Quit_button_up():
 	Singleton.scene_goto(Singleton.main_menu)
 "
+
+[sub_resource type="DynamicFont" id=2]
+size = 64
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.890196, 0.592157, 0.843137, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.364706, 0.929412, 0.690196, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.45098, 0.101961, 0.329412, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.521569, 0.733333, 0.835294, 1 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 48
+outline_size = 2
+outline_color = Color( 0.890196, 0.592157, 0.843137, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.45098, 0.101961, 0.329412, 1 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.890196, 0.592157, 0.843137, 1 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.521569, 0.733333, 0.835294, 1 )
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.364706, 0.929412, 0.690196, 1 )
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -24,52 +84,58 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Death Menu"]
-anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -240.0
 margin_top = -250.0
-margin_right = 260.0
 margin_bottom = 390.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Menu Label" type="Label" parent="Death Menu/VBoxContainer"]
-margin_right = 500.0
-margin_bottom = 46.0
-custom_fonts/font = ExtResource( 2 )
-text = "U IS KIL"
+margin_right = 1920.0
+margin_bottom = 179.0
+custom_fonts/font = SubResource( 2 )
+text = "THESE 80'S PEOPLE ARE FLUENT IN OVER 1000 WAYS OF KICKING YOUR ASS"
 align = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HSeparator" type="HSeparator" parent="Death Menu/VBoxContainer"]
-margin_top = 50.0
-margin_right = 500.0
-margin_bottom = 125.0
+margin_top = 183.0
+margin_right = 1920.0
+margin_bottom = 258.0
 rect_min_size = Vector2( 0, 75 )
 
 [node name="Retry" type="Button" parent="Death Menu/VBoxContainer"]
-margin_top = 129.0
-margin_right = 500.0
-margin_bottom = 181.0
-custom_fonts/font = ExtResource( 2 )
-text = "NO!"
+margin_top = 262.0
+margin_right = 1920.0
+margin_bottom = 328.0
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/focus = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
+custom_fonts/font = SubResource( 7 )
+text = "RETRY"
 
 [node name="HSeparator2" type="HSeparator" parent="Death Menu/VBoxContainer"]
-margin_top = 185.0
-margin_right = 500.0
-margin_bottom = 225.0
+margin_top = 332.0
+margin_right = 1920.0
+margin_bottom = 372.0
 rect_min_size = Vector2( 0, 40 )
 
 [node name="Quit" type="Button" parent="Death Menu/VBoxContainer"]
-margin_top = 229.0
-margin_right = 500.0
-margin_bottom = 281.0
+margin_top = 376.0
+margin_right = 1920.0
+margin_bottom = 420.0
+custom_styles/hover = SubResource( 8 )
+custom_styles/pressed = SubResource( 9 )
+custom_styles/focus = SubResource( 10 )
+custom_styles/normal = SubResource( 11 )
 custom_fonts/font = ExtResource( 2 )
-text = "no :("
+text = "Return to Main Menu"
 [connection signal="button_up" from="Death Menu/VBoxContainer/Retry" to="Death Menu" method="_on_Retry_button_up"]
 [connection signal="button_up" from="Death Menu/VBoxContainer/Quit" to="Death Menu" method="_on_Quit_button_up"]

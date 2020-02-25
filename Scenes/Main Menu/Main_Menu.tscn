@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Assets/Logo.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Music/teampunk_peregon.ogg" type="AudioStream" id=2]
@@ -9,45 +9,48 @@
 [ext_resource path="res://Assets/FFFFORWA.TTF" type="DynamicFontData" id=7]
 [ext_resource path="res://Assets/Sprites/UI_CheckboxFalse.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Sprites/UI_CheckboxTrue.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Jam_Images/GWJ-18-WC-1.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Jam_Images/GWJ-18-WC-Bonus-Gold.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Jam_Images/GWJ-18-WC-2.png" type="Texture" id=12]
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0980392, 0.0627451, 0.156863, 1 )
 
+[sub_resource type="StyleBoxFlat" id=2]
+
+[sub_resource type="StyleBoxFlat" id=3]
+
+[sub_resource type="StyleBoxFlat" id=4]
+
+[sub_resource type="StyleBoxFlat" id=5]
+
+[sub_resource type="StyleBoxFlat" id=6]
+
 [sub_resource type="StyleBoxFlat" id=7]
-
-[sub_resource type="StyleBoxFlat" id=8]
-
-[sub_resource type="StyleBoxFlat" id=9]
-
-[sub_resource type="StyleBoxFlat" id=10]
-
-[sub_resource type="StyleBoxFlat" id=11]
-
-[sub_resource type="StyleBoxFlat" id=12]
 border_width_left = 8
 border_width_top = 8
 border_width_right = 8
 border_width_bottom = 8
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=8]
 size = 32
 outline_size = 1
 outline_color = Color( 0.596078, 0.796078, 0.882353, 1 )
 font_data = ExtResource( 7 )
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0.364706, 0.929412, 0.690196, 1 )
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.45098, 0.101961, 0.329412, 1 )
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 0.890196, 0.592157, 0.843137, 1 )
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=12]
 bg_color = Color( 0.521569, 0.733333, 0.835294, 1 )
 
-[sub_resource type="DynamicFont" id=14]
+[sub_resource type="DynamicFont" id=13]
 size = 32
 outline_size = 1
 outline_color = Color( 0.6, 0.803922, 0.886275, 1 )
@@ -64,7 +67,7 @@ margin_left = -28.9025
 margin_top = -28.9025
 margin_right = 27.0975
 margin_bottom = 27.0975
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -93,13 +96,13 @@ anchor_bottom = 0.7
 focus_mode = 0
 custom_icons/checked = ExtResource( 9 )
 custom_icons/unchecked = ExtResource( 8 )
-custom_styles/hover = SubResource( 7 )
-custom_styles/pressed = SubResource( 8 )
-custom_styles/focus = SubResource( 9 )
-custom_styles/disabled = SubResource( 10 )
-custom_styles/hover_pressed = SubResource( 11 )
-custom_styles/normal = SubResource( 12 )
-custom_fonts/font = SubResource( 13 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/disabled = SubResource( 5 )
+custom_styles/hover_pressed = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 shortcut_in_tooltip = false
 enabled_focus_mode = 0
 text = "> Fullscreen"
@@ -113,10 +116,10 @@ anchor_top = 0.85
 anchor_right = 0.1
 anchor_bottom = 0.9
 focus_mode = 0
-custom_styles/hover = SubResource( 1 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/normal = SubResource( 4 )
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/normal = SubResource( 12 )
 custom_fonts/font = ExtResource( 5 )
 enabled_focus_mode = 0
 text = "Quit"
@@ -129,10 +132,10 @@ anchor_top = 0.725
 anchor_right = 0.225
 anchor_bottom = 0.815
 focus_mode = 0
-custom_styles/hover = SubResource( 1 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/normal = SubResource( 4 )
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/normal = SubResource( 12 )
 custom_fonts/font = ExtResource( 5 )
 enabled_focus_mode = 0
 __meta__ = {
@@ -159,10 +162,10 @@ anchor_top = 0.725
 anchor_right = 0.6
 anchor_bottom = 0.815
 focus_mode = 0
-custom_styles/hover = SubResource( 1 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/normal = SubResource( 4 )
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/normal = SubResource( 12 )
 custom_fonts/font = ExtResource( 5 )
 enabled_focus_mode = 0
 __meta__ = {
@@ -190,7 +193,7 @@ anchor_right = 0.333
 anchor_bottom = 0.707
 margin_left = 1.50745
 margin_right = 112.067
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "High Score:  "
 valign = 1
@@ -236,6 +239,21 @@ text = "SFX"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="GWJ-18-WC-1" type="Sprite" parent="."]
+position = Vector2( 473.385, 153.575 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 10 )
+
+[node name="GWJ-18-WC-2" type="Sprite" parent="."]
+position = Vector2( 294.181, 182.911 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 12 )
+
+[node name="GWJ-18-WC-Bonus-Gold" type="Sprite" parent="."]
+position = Vector2( 112.539, 216.487 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 11 )
 [connection signal="pressed" from="Fullscreen" to="." method="_on_Fullscreen_pressed"]
 [connection signal="button_up" from="Quit" to="." method="_on_Quit_button_up"]
 [connection signal="button_up" from="Play" to="." method="_on_Play_button_up"]

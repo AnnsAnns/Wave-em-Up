@@ -1,7 +1,9 @@
 [gd_resource type="DynamicFont" load_steps=2 format=2]
 
-[ext_resource path="res://Arial.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/FFFFORWA.TTF" type="DynamicFontData" id=1]
 
 [resource]
-size = 40
+size = 32
+outline_size = 2
+outline_color = Color( 0.45098, 0.101961, 0.329412, 1 )
 font_data = ExtResource( 1 )
