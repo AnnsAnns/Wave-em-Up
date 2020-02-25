@@ -1,6 +1,5 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Assets/Music/teampunk_peregon.ogg" type="AudioStream" id=1]
 [ext_resource path="res://Scenes/Shaders/CRT_Monitor.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Entities/Desert_Tile.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Entities/PlayerAnimated.tscn" type="PackedScene" id=4]
@@ -20,7 +19,6 @@ var enemies_killed = 0
 
 var end_position := Vector2()
 
-onready var goal = load(\"res://Scenes/Entities/Desert_Goal.tscn\")
 onready var label = $CanvasLayer/GoalLabel
 
 func _ready():
@@ -28,7 +26,7 @@ func _ready():
 	label.text = \"> ENEMIES KILLED: \" + String(enemies_killed)
 	$CanvasLayer/GoalLabel/StrikeThrough.visible = false
 	
-	$Music.stream = load(\"res://Assets/Music/teampunk_desert_prefx.ogg\")
+	$Music.stream = load(\"res://Assets/Music/teampunk_bosswave_prefx.ogg\")
 	$Music.play()
 
 func enemy_killed():
@@ -96,6 +94,5 @@ __meta__ = {
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
-stream = ExtResource( 1 )
 autoplay = true
 bus = "Music"

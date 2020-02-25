@@ -22,6 +22,11 @@ onready var prepare = load("res://Assets/SFX/Enemy_Attack.wav")
 onready var die = load("res://Assets/SFX/Enemy_Die.wav")
 onready var hurt = load("res://Assets/SFX/Enemy_Hurt.wav")
 
+onready var d1 = load("res://Assets/WillowbladeBoss/death.wav")
+onready var d2 = load("res://Assets/WillowbladeBoss/evil_laugh1.wav")
+onready var d3 = load("res://Assets/WillowbladeBoss/evil_laugh2.wav")
+onready var d4 = load("res://Assets/WillowbladeBoss/evil_laugh3.wav")
+
 var t = 0.1
 var hit = false
 var distance_to_walk = 0.0
@@ -128,7 +133,6 @@ func lose_health():
 	if health <= 0:
 		state = -1
 		can_atk = false
-		sprite.play("Dead")
 		atk_timer.stop()
 		can_atk_timer.stop()
 		aspd = speed
@@ -138,6 +142,24 @@ func lose_health():
 		if get_parent().has_method("enemy_killed"):	get_parent().enemy_killed()
 		$DeathParticles.emitting = true
 		$Sound.stream = die
+		
+		var d = randi() % 4 + 1
+		var f = randf() * 100
+		if f < 80:
+			sprite.play(String(d))
+		else:
+			sprite.play(String("Secret"))
+			var rs = randi() % 4
+			match rs:
+				0:
+					$Sound.stream = d1
+				1:
+					$Sound.stream = d2
+				2:
+					$Sound.stream = d3
+				3:
+					$Sound.stream = d4
+		
 		$Sound.play()
 		return
 	
