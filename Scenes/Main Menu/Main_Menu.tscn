@@ -254,9 +254,14 @@ texture = ExtResource( 12 )
 position = Vector2( 112.539, 216.487 )
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 11 )
+
+[node name="Timer-Synchro" type="Timer" parent="."]
+wait_time = 0.4
+autostart = true
 [connection signal="pressed" from="Fullscreen" to="." method="_on_Fullscreen_pressed"]
 [connection signal="button_up" from="Quit" to="." method="_on_Quit_button_up"]
 [connection signal="button_up" from="Play" to="." method="_on_Play_button_up"]
 [connection signal="button_up" from="Endless" to="." method="_on_Endless_button_up"]
 [connection signal="value_changed" from="MusicSlider" to="." method="_on_MusicSlider_value_changed"]
 [connection signal="value_changed" from="SFXSlider" to="." method="_on_SFXSlider_value_changed"]
+[connection signal="timeout" from="Timer-Synchro" to="." method="_on_TimerSynchro_timeout"]
