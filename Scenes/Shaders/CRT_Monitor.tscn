@@ -43,17 +43,15 @@ shader_param/scroll_speed = 50.0
 load_path = "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
 
 [node name="80s Shader CRT" type="Node2D"]
+z_index = 9
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
 light_mask = 0
 material = SubResource( 2 )
-margin_left = 0.0909424
-margin_top = -2.90918
-margin_right = 1921.09
-margin_bottom = 1087.09
-rect_pivot_offset = Vector2( 301.857, 2641.09 )
+anchor_right = 1.0
+anchor_bottom = 1.0
 mouse_filter = 2
 texture = SubResource( 3 )
 expand = true

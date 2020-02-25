@@ -18,6 +18,10 @@ onready var sprite = $Sprite
 onready var detection = $Detection
 onready var hitting = $Hit
 
+onready var prepare = load("res://Assets/SFX/Enemy_Attack.wav")
+onready var die = load("res://Assets/SFX/Enemy_Die.wav")
+onready var hurt = load("res://Assets/SFX/Enemy_Hurt.wav")
+
 var t = 0.1
 var hit = false
 var distance_to_walk = 0.0
@@ -132,6 +136,13 @@ func lose_health():
 		$Sprite/Shadow.visible = false
 		$CollisionShape2D.disabled = true
 		if get_parent().has_method("enemy_killed"):	get_parent().enemy_killed()
+		$DeathParticles.emitting = true
+		$Sound.stream = die
+		$Sound.play()
+		return
+	
+	$Sound.stream = hurt
+	$Sound.play()
 
 func prepare_attack():
 	if state == -1:	return
@@ -143,6 +154,8 @@ func prepare_attack():
 	if atk_dir.x < 0:	sprite.flip_h = true
 	elif atk_dir.x > 0:	sprite.flip_h = false
 	aspd = atkSpeed
+	$Sound.stream = prepare
+	$Sound.play()
 
 func attack():
 	atk_timer.stop()

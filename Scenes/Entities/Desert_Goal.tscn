@@ -1,26 +1,26 @@
 [gd_scene load_steps=8 format=2]
 
-[sub_resource type="GDScript" id=7]
+[sub_resource type="GDScript" id=1]
 script/source = "extends Area2D
 
 func _on_Goal_body_entered(_body):
 	Singleton.scene_goto(Singleton.clear_level)
 "
 
-[sub_resource type="Gradient" id=4]
+[sub_resource type="Gradient" id=2]
 colors = PoolColorArray( 1, 0.931068, 0.492188, 1, 0, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=5]
-gradient = SubResource( 4 )
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
 width = 128
 
-[sub_resource type="Curve" id=1]
+[sub_resource type="Curve" id=4]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -2.00231, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=2]
-curve = SubResource( 1 )
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
 
-[sub_resource type="ParticlesMaterial" id=3]
+[sub_resource type="ParticlesMaterial" id=6]
 emission_shape = 1
 emission_sphere_radius = 128.0
 flag_disable_z = true
@@ -32,22 +32,22 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel = 64.0
 scale = 4.0
-scale_curve = SubResource( 2 )
-color_ramp = SubResource( 5 )
+scale_curve = SubResource( 5 )
+color_ramp = SubResource( 3 )
 
-[sub_resource type="CircleShape2D" id=6]
-radius = 192.0
+[sub_resource type="CircleShape2D" id=7]
+radius = 160.0
 
 [node name="Goal" type="Area2D"]
 collision_layer = 0
 collision_mask = 512
-script = SubResource( 7 )
+script = SubResource( 1 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
 amount = 32
 visibility_rect = Rect2( -160, -160, 320, 320 )
-process_material = SubResource( 3 )
+process_material = SubResource( 6 )
 
 [node name="PlayerDetection" type="CollisionShape2D" parent="."]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 [connection signal="body_entered" from="." to="." method="_on_Goal_body_entered"]

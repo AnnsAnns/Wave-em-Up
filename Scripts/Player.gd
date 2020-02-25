@@ -25,6 +25,9 @@ signal lose_health
 
 var dead = false
 
+onready var die = load("res://Assets/SFX/Player_Die.wav")
+onready var hurt = load("res://Assets/SFX/Player_Hurt.wav")
+
 func _ready():
 	health = maxHealth
 	dead = false
@@ -122,10 +125,12 @@ func get_function_based_on_position():
 
 func _on_AimPivot_IsNotFiring():
 	if dead == true:	return
+	$ShootSound.stop()
 	arms.play("Normal",false)
 
 func _on_AimPivot_IsFiring():
 	if dead == true:	return
+	$ShootSound.play()
 	arms.play("Shoot",false)
 
 func _on_Player_gain_health():
@@ -162,3 +167,10 @@ func _on_Player_lose_health():
 		var dm_instance = death_menu.instance()
 		dm_instance.set_name("Death Menu")
 		add_child(dm_instance)
+		
+		$Sound.stream = die
+		$Sound.play()
+		return
+	
+	$Sound.stream = hurt
+	$Sound.play()

@@ -41,14 +41,14 @@ animations = [ {
 "name": "looking_at_player",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 10 ) ],
-"loop": true,
-"name": "Angry",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 11 ) ],
 "loop": true,
 "name": "Flex",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "Angry",
 "speed": 5.0
 } ]
 
@@ -116,11 +116,6 @@ wait_time = 5.0
 autostart = true
 
 [node name="Player" parent="." instance=ExtResource( 12 )]
-position = Vector2( -84.092, 104.336 )
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 7.45914, 13.9859 )
-scale = Vector2( 1.53578, 0.754113 )
-current = true
+position = Vector2( 0, 128 )
 [connection signal="timeout" from="Willowblade2/AttackTimer" to="Willowblade2" method="_on_AttackTimer_timeout"]
 [connection signal="timeout" from="Willowblade2/WillowTimer" to="Willowblade2" method="_on_WillowTimer_timeout"]

@@ -3,7 +3,7 @@ extends Tree
 #Variable Declarations
 onready var main_menu = "res://Scenes/Main Menu/Main_Menu.tscn"
 onready var desert_level = "res://Scenes/Level/Level_Desert.tscn"
-onready var endless_level = "res://Scenes/Other Menus/Level_Endless.tscn"
+onready var endless_level = "res://Scenes/Level/Level_Endless.tscn"
 onready var clear_level = "res://Scenes/Other Menus/Game_Clear.tscn"
 #onready var boss_level = "res://Scenes/Level/Level_Desert"
 var current_scene = null
@@ -30,7 +30,6 @@ func _ready():
 		load_timer.stop()
 		load_timer.wait_time=1
 
-
 # Call to Change Room
 func scene_goto(scene):
 	sc = scene
@@ -56,7 +55,33 @@ func scene_reload():
 
 #Toggle Fullscreen
 func fullscreen():
-	if (OS.is_window_fullscreen() == false):
-		OS.set_window_fullscreen(true)
-	elif (OS.is_window_fullscreen() == true):
-		OS.set_window_fullscreen(false)
+	OS.set_window_fullscreen(!OS.set_window_fullscreen)
+
+const FILE_NAME = "user://waveemup-data.json"
+
+var data = {
+	"high score": 0,
+	"music": 0.8,
+	"sfx": 0.8,
+	"fullscreen": false
+}
+
+func save_data():
+	var file = File.new()
+	file.open_encrypted_with_pass(FILE_NAME, File.WRITE, "qwerty")
+	file.store_string(to_json(data))
+	file.close()
+
+func load_data():
+	var file = File.new()
+	if file.file_exists(FILE_NAME):
+		#file.open(FILE_NAME, File.READ)
+		file.open_encrypted_with_pass(FILE_NAME, File.READ, "qwerty")
+		var d = parse_json(file.get_as_text())
+		file.close()
+		if typeof(d) == TYPE_DICTIONARY:
+			data = d
+		else:
+			printerr("Corrupted data!")
+	else:
+		printerr("No saved data!")

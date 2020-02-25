@@ -70,9 +70,11 @@ texture = ExtResource( 1 )
 region_rect = Rect2( 0, 0, 512, 288 )
 
 [node name="Loading Screen CL" type="CanvasLayer"]
+pause_mode = 2
 layer = 8
 
 [node name="Loading Screen" type="Panel" parent="."]
+pause_mode = 2
 anchor_bottom = 1.0
 custom_styles/panel = SubResource( 1 )
 script = SubResource( 2 )
@@ -81,6 +83,7 @@ __meta__ = {
 }
 
 [node name="Image" type="Panel" parent="Loading Screen"]
+pause_mode = 2
 self_modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0

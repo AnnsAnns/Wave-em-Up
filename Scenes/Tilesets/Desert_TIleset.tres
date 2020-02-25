@@ -229,29 +229,29 @@ points = PoolVector2Array( 412, 256, 388, 256, 388, 228, 412, 228 )
 points = PoolVector2Array( 472, 224, 456, 224, 456, 192, 472, 192 )
 
 [sub_resource type="NavigationPolygon" id=74]
-vertices = PoolVector2Array( 0, 4, 0, 97, 96, 92, 100, 96, 100, 152, 104, 156, 192, 156, 196, 160, 196, 288, 512, 288, 512, 128, 384, 132, 380, 128, 380, 0 )
-polygons = [ PoolIntArray( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ) ]
+vertices = PoolVector2Array( 0, 4, 376, 0, 376, 128, 384, 136, 512, 136, 512, 288, 0, 288, 0, 264, 192, 264, 200, 256, 200, 160, 192, 152, 112, 152, 104, 144, 104, 92, 96, 88, 0, 88 )
+polygons = [ PoolIntArray( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ) ]
 
 [sub_resource type="ConvexPolygonShape2D" id=75]
-points = PoolVector2Array( 512, 128, 384, 128, 384, 0, 512, 0 )
+points = PoolVector2Array( 192, 256, 0, 256, 0, 96, 96, 96, 96, 160, 192, 160 )
 
 [sub_resource type="ConvexPolygonShape2D" id=76]
-points = PoolVector2Array( 192, 288, 0, 288, 0, 96, 96, 96, 96, 160, 192, 160 )
-
-[sub_resource type="ConvexPolygonShape2D" id=77]
 points = PoolVector2Array( 320, 96, 288, 96, 288, 72, 320, 72 )
 
-[sub_resource type="ConvexPolygonShape2D" id=78]
+[sub_resource type="ConvexPolygonShape2D" id=77]
 points = PoolVector2Array( 344, 64, 328, 64, 328, 32, 344, 32 )
 
-[sub_resource type="ConvexPolygonShape2D" id=79]
+[sub_resource type="ConvexPolygonShape2D" id=78]
 points = PoolVector2Array( 160, 128, 128, 128, 128, 96, 160, 96 )
 
-[sub_resource type="ConvexPolygonShape2D" id=80]
+[sub_resource type="ConvexPolygonShape2D" id=79]
 points = PoolVector2Array( 284, 224, 260, 224, 260, 192, 284, 192 )
 
-[sub_resource type="ConvexPolygonShape2D" id=81]
+[sub_resource type="ConvexPolygonShape2D" id=80]
 points = PoolVector2Array( 444, 256, 420, 256, 420, 232, 444, 232 )
+
+[sub_resource type="ConvexPolygonShape2D" id=81]
+points = PoolVector2Array( 384, 128, 384, 0, 512, 0, 512, 128, 384, 128 )
 
 [sub_resource type="NavigationPolygon" id=82]
 vertices = PoolVector2Array( 164, 0, 348, 0, 348, 28, 316, 44, 348, 64, 348, 96, 352, 100, 376, 100, 396, 128, 416, 100, 512, 100, 512, 188, 352, 188, 320, 208, 320, 248, 348, 264, 348, 288, 196, 288, 164, 256, 164, 192, 160, 188, 128, 188, 112, 164, 100, 188, 0, 188, 0, 100, 160, 100, 164, 96 )

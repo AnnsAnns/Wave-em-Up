@@ -1,11 +1,39 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Assets/Logo.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Music/teampunk_peregon.ogg" type="AudioStream" id=2]
 [ext_resource path="res://Scripts/Menus/Main_Menu.gd" type="Script" id=3]
 [ext_resource path="res://Assets/Credits.png" type="Texture" id=4]
 [ext_resource path="res://Assets/FFFont.tres" type="DynamicFont" id=5]
-[ext_resource path="res://Scenes/Main Menu/Loadingscreen.tscn" type="PackedScene" id=6]
+[ext_resource path="res://default_env.tres" type="Environment" id=6]
+[ext_resource path="res://Assets/FFFFORWA.TTF" type="DynamicFontData" id=7]
+[ext_resource path="res://Assets/Sprites/UI_CheckboxFalse.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Sprites/UI_CheckboxTrue.png" type="Texture" id=9]
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.0980392, 0.0627451, 0.156863, 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+
+[sub_resource type="StyleBoxFlat" id=8]
+
+[sub_resource type="StyleBoxFlat" id=9]
+
+[sub_resource type="StyleBoxFlat" id=10]
+
+[sub_resource type="StyleBoxFlat" id=11]
+
+[sub_resource type="StyleBoxFlat" id=12]
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+
+[sub_resource type="DynamicFont" id=13]
+size = 32
+outline_size = 1
+outline_color = Color( 0.596078, 0.796078, 0.882353, 1 )
+font_data = ExtResource( 7 )
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.364706, 0.929412, 0.690196, 1 )
@@ -19,12 +47,24 @@ bg_color = Color( 0.890196, 0.592157, 0.843137, 1 )
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.521569, 0.733333, 0.835294, 1 )
 
-[node name="Main_Menu" type="Control"]
+[sub_resource type="DynamicFont" id=14]
+size = 32
+outline_size = 1
+outline_color = Color( 0.6, 0.803922, 0.886275, 1 )
+font_data = ExtResource( 7 )
+
+[node name="Main_Menu" type="WorldEnvironment"]
+environment = ExtResource( 6 )
+script = ExtResource( 3 )
+
+[node name="BG" type="Panel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.10107
-margin_right = 4.10107
-script = ExtResource( 3 )
+margin_left = -28.9025
+margin_top = -28.9025
+margin_right = 27.0975
+margin_bottom = 27.0975
+custom_styles/panel = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -40,19 +80,26 @@ scale = Vector2( 1.78586, 1.78586 )
 texture = ExtResource( 4 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
 stream = ExtResource( 2 )
 autoplay = true
-
-[node name="Loading" parent="." instance=ExtResource( 6 )]
-visible = false
+bus = "Music"
 
 [node name="Fullscreen" type="CheckBox" parent="."]
-margin_left = 3.0
-margin_top = 706.747
-margin_right = 493.0
-margin_bottom = 771.747
+anchor_left = 0.006
+anchor_top = 0.6
+anchor_right = 0.293
+anchor_bottom = 0.7
 focus_mode = 0
-custom_fonts/font = ExtResource( 5 )
+custom_icons/checked = ExtResource( 9 )
+custom_icons/unchecked = ExtResource( 8 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/disabled = SubResource( 10 )
+custom_styles/hover_pressed = SubResource( 11 )
+custom_styles/normal = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 shortcut_in_tooltip = false
 enabled_focus_mode = 0
 text = "> Fullscreen"
@@ -62,14 +109,15 @@ __meta__ = {
 }
 
 [node name="Quit" type="Button" parent="."]
-anchor_top = 0.825
-anchor_right = 0.106
-anchor_bottom = 0.883
+anchor_top = 0.85
+anchor_right = 0.1
+anchor_bottom = 0.9
 focus_mode = 0
 custom_styles/hover = SubResource( 1 )
 custom_styles/pressed = SubResource( 2 )
 custom_styles/focus = SubResource( 3 )
 custom_styles/normal = SubResource( 4 )
+custom_fonts/font = ExtResource( 5 )
 enabled_focus_mode = 0
 text = "Quit"
 __meta__ = {
@@ -78,13 +126,14 @@ __meta__ = {
 
 [node name="Play" type="Button" parent="."]
 anchor_top = 0.725
-anchor_right = 0.246
-anchor_bottom = 0.807
+anchor_right = 0.225
+anchor_bottom = 0.815
 focus_mode = 0
 custom_styles/hover = SubResource( 1 )
 custom_styles/pressed = SubResource( 2 )
 custom_styles/focus = SubResource( 3 )
 custom_styles/normal = SubResource( 4 )
+custom_fonts/font = ExtResource( 5 )
 enabled_focus_mode = 0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -94,6 +143,7 @@ __meta__ = {
 anchor_right = 0.5
 anchor_bottom = 0.5
 rect_scale = Vector2( 2, 2 )
+custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0.890196, 0.137255, 1, 1 )
 text = "PLAY!"
@@ -102,6 +152,93 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Endless" type="Button" parent="."]
+anchor_left = 0.25
+anchor_top = 0.725
+anchor_right = 0.6
+anchor_bottom = 0.815
+focus_mode = 0
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+custom_fonts/font = ExtResource( 5 )
+enabled_focus_mode = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Endless"]
+anchor_right = 0.5
+anchor_bottom = 0.5
+rect_scale = Vector2( 2, 2 )
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0.890196, 0.137255, 1, 1 )
+text = "PLAY! (ENDLESS)"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HighScore" type="Label" parent="."]
+anchor_left = 0.251
+anchor_top = 0.642
+anchor_right = 0.333
+anchor_bottom = 0.707
+margin_left = 1.50745
+margin_right = 112.067
+custom_fonts/font = SubResource( 14 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "High Score:  "
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MusicSlider" type="HSlider" parent="."]
+anchor_left = 0.05
+anchor_top = 0.5
+anchor_right = 0.298
+anchor_bottom = 0.55
+margin_top = -67.2026
+margin_bottom = -67.2026
+max_value = 1.0
+step = 0.025
+value = 0.8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="MusicSlider"]
+anchor_bottom = 1.0
+margin_right = 40.0
+margin_bottom = 22.0
+text = "MUSIC"
+
+[node name="SFXSlider" type="HSlider" parent="."]
+anchor_left = 0.05
+anchor_top = 0.5
+anchor_right = 0.298
+anchor_bottom = 0.55
+max_value = 1.0
+step = 0.025
+value = 0.8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="SFXSlider"]
+anchor_bottom = 1.0
+text = "SFX"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="Fullscreen" to="." method="_on_Fullscreen_pressed"]
 [connection signal="button_up" from="Quit" to="." method="_on_Quit_button_up"]
 [connection signal="button_up" from="Play" to="." method="_on_Play_button_up"]
+[connection signal="button_up" from="Endless" to="." method="_on_Endless_button_up"]
+[connection signal="value_changed" from="MusicSlider" to="." method="_on_MusicSlider_value_changed"]
+[connection signal="value_changed" from="SFXSlider" to="." method="_on_SFXSlider_value_changed"]

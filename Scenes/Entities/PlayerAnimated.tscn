@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=71 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/PlayerSpriteSheet.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://Scenes/Shaders/SynthwaveParticle.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Sprites/Player_Bar.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Sprites/Player_BarFILL.png" type="Texture" id=6]
+[ext_resource path="res://Assets/SFX/Player_Shoot.wav" type="AudioStream" id=7]
+[ext_resource path="res://Assets/FFFFORWA.TTF" type="DynamicFontData" id=8]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -57,11 +59,11 @@ region = Rect2( 160, 32, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 2 )
-region = Rect2( 96, 64, 32, 32 )
+region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 32, 32 )
+region = Rect2( 96, 64, 32, 32 )
 
 [sub_resource type="SpriteFrames" id=15]
 animations = [ {
@@ -77,12 +79,12 @@ animations = [ {
 }, {
 "frames": [ SubResource( 13 ) ],
 "loop": false,
-"name": "Dead",
+"name": "Idle",
 "speed": 0.0
 }, {
 "frames": [ SubResource( 14 ) ],
 "loop": false,
-"name": "Idle",
+"name": "Dead",
 "speed": 0.0
 } ]
 
@@ -90,22 +92,22 @@ animations = [ {
 width = 12
 height = 4
 
-[sub_resource type="Curve" id=48]
+[sub_resource type="Curve" id=17]
 min_value = -360.0
 max_value = 360.0
 _data = [ Vector2( 0, 0 ), 0.0, 1008.0, 0, 0, Vector2( 1, 360 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=49]
-curve = SubResource( 48 )
+[sub_resource type="CurveTexture" id=18]
+curve = SubResource( 17 )
 
-[sub_resource type="Curve" id=45]
+[sub_resource type="Curve" id=19]
 _data = [ Vector2( 0, 1 ), 0.0, -0.0426132, 0, 0, Vector2( 1, 0 ), -0.0915693, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=46]
+[sub_resource type="CurveTexture" id=20]
 width = 128
-curve = SubResource( 45 )
+curve = SubResource( 19 )
 
-[sub_resource type="ParticlesMaterial" id=47]
+[sub_resource type="ParticlesMaterial" id=21]
 lifetime_randomness = 0.4
 emission_shape = 2
 emission_box_extents = Vector3( 8, 16, 0 )
@@ -117,112 +119,112 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 angle = 360.0
 angle_random = 1.0
-angle_curve = SubResource( 49 )
+angle_curve = SubResource( 18 )
 scale = 6.0
-scale_curve = SubResource( 46 )
+scale_curve = SubResource( 20 )
 color = Color( 0.694118, 0.176471, 0.588235, 1 )
 
-[sub_resource type="CapsuleShape2D" id=17]
+[sub_resource type="CapsuleShape2D" id=22]
 radius = 12.0
 height = 32.0
 
-[sub_resource type="AtlasTexture" id=18]
+[sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 2 )
 region = Rect2( 192, 32, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=19]
+[sub_resource type="AtlasTexture" id=24]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 64, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=20]
+[sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 2 )
 region = Rect2( 32, 64, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=21]
+[sub_resource type="AtlasTexture" id=26]
 atlas = ExtResource( 2 )
 region = Rect2( 64, 64, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=22]
+[sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 2 )
 region = Rect2( 192, 32, 32, 32 )
 
-[sub_resource type="SpriteFrames" id=23]
+[sub_resource type="SpriteFrames" id=28]
 animations = [ {
-"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ) ],
+"frames": [ SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ) ],
 "loop": true,
 "name": "Shoot",
 "speed": 60.0
 }, {
-"frames": [ SubResource( 22 ) ],
+"frames": [ SubResource( 27 ) ],
 "loop": true,
 "name": "Normal",
 "speed": 5.0
 } ]
 
-[sub_resource type="StyleBoxFlat" id=53]
+[sub_resource type="StyleBoxFlat" id=29]
 bg_color = Color( 0.466667, 0.470588, 0.937255, 1 )
 
-[sub_resource type="StyleBoxFlat" id=54]
+[sub_resource type="StyleBoxFlat" id=30]
 bg_color = Color( 0.0313726, 0, 0.113725, 1 )
 
-[sub_resource type="BitmapFont" id=52]
+[sub_resource type="BitmapFont" id=31]
 
-[sub_resource type="StyleBoxFlat" id=50]
+[sub_resource type="StyleBoxFlat" id=32]
 bg_color = Color( 0.882353, 0.376471, 0.403922, 1 )
 
-[sub_resource type="StyleBoxFlat" id=51]
+[sub_resource type="StyleBoxFlat" id=33]
 bg_color = Color( 0.121569, 0, 0.0313726, 1 )
 
-[sub_resource type="VisualShaderNodeCompare" id=29]
+[sub_resource type="VisualShaderNodeCompare" id=34]
 function = 5
 
-[sub_resource type="VisualShaderNodeSwitch" id=30]
+[sub_resource type="VisualShaderNodeSwitch" id=35]
 
-[sub_resource type="VisualShaderNodeScalarOp" id=31]
+[sub_resource type="VisualShaderNodeScalarOp" id=36]
 default_input_values = [ 0, 0.0, 1, 100.0 ]
 operator = 3
 
-[sub_resource type="VisualShaderNodeCompare" id=32]
+[sub_resource type="VisualShaderNodeCompare" id=37]
 function = 5
 
-[sub_resource type="VisualShaderNodeSwitch" id=33]
+[sub_resource type="VisualShaderNodeSwitch" id=38]
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=34]
+[sub_resource type="VisualShaderNodeScalarUniform" id=39]
 uniform_name = "Stamina"
 
-[sub_resource type="VisualShaderNodeScalarClamp" id=35]
+[sub_resource type="VisualShaderNodeScalarClamp" id=40]
 
-[sub_resource type="VisualShaderNodeScalarInterp" id=36]
+[sub_resource type="VisualShaderNodeScalarInterp" id=41]
 
-[sub_resource type="VisualShaderNodeScalarInterp" id=37]
+[sub_resource type="VisualShaderNodeScalarInterp" id=42]
 
-[sub_resource type="VisualShaderNodeTexture" id=38]
+[sub_resource type="VisualShaderNodeTexture" id=43]
 source = 2
 texture_type = 1
 
-[sub_resource type="VisualShaderNodeScalarOp" id=39]
+[sub_resource type="VisualShaderNodeScalarOp" id=44]
 
-[sub_resource type="VisualShaderNodeScalarOp" id=40]
+[sub_resource type="VisualShaderNodeScalarOp" id=45]
 operator = 2
 
-[sub_resource type="VisualShaderNodeScalarClamp" id=41]
+[sub_resource type="VisualShaderNodeScalarClamp" id=46]
 
-[sub_resource type="VisualShaderNodeTexture" id=25]
+[sub_resource type="VisualShaderNodeTexture" id=47]
 texture = ExtResource( 6 )
 texture_type = 1
 
-[sub_resource type="VisualShaderNodeVectorDecompose" id=26]
+[sub_resource type="VisualShaderNodeVectorDecompose" id=48]
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=42]
+[sub_resource type="VisualShaderNodeScalarUniform" id=49]
 uniform_name = "Health"
 
-[sub_resource type="VisualShaderNodeScalarClamp" id=43]
+[sub_resource type="VisualShaderNodeScalarClamp" id=50]
 
-[sub_resource type="VisualShaderNodeScalarOp" id=44]
+[sub_resource type="VisualShaderNodeScalarOp" id=51]
 default_input_values = [ 0, 0.0, 1, 6.0 ]
 operator = 3
 
-[sub_resource type="VisualShader" id=27]
+[sub_resource type="VisualShader" id=52]
 code = "shader_type canvas_item;
 render_mode unshaded;
 
@@ -362,53 +364,99 @@ mode = 1
 flags/light_only = false
 flags/unshaded = true
 nodes/fragment/0/position = Vector2( 1940, 80 )
-nodes/fragment/3/node = SubResource( 25 )
+nodes/fragment/3/node = SubResource( 47 )
 nodes/fragment/3/position = Vector2( -320, 60 )
-nodes/fragment/4/node = SubResource( 26 )
+nodes/fragment/4/node = SubResource( 48 )
 nodes/fragment/4/position = Vector2( -80, 220 )
-nodes/fragment/5/node = SubResource( 42 )
+nodes/fragment/5/node = SubResource( 49 )
 nodes/fragment/5/position = Vector2( -100, 360 )
-nodes/fragment/6/node = SubResource( 43 )
+nodes/fragment/6/node = SubResource( 50 )
 nodes/fragment/6/position = Vector2( 360, 260 )
-nodes/fragment/7/node = SubResource( 44 )
+nodes/fragment/7/node = SubResource( 51 )
 nodes/fragment/7/position = Vector2( 140, 300 )
-nodes/fragment/10/node = SubResource( 29 )
+nodes/fragment/10/node = SubResource( 34 )
 nodes/fragment/10/position = Vector2( 540, 300 )
-nodes/fragment/11/node = SubResource( 30 )
+nodes/fragment/11/node = SubResource( 35 )
 nodes/fragment/11/position = Vector2( 780, 360 )
-nodes/fragment/13/node = SubResource( 31 )
+nodes/fragment/13/node = SubResource( 36 )
 nodes/fragment/13/position = Vector2( 190.587, -8 )
-nodes/fragment/14/node = SubResource( 32 )
+nodes/fragment/14/node = SubResource( 37 )
 nodes/fragment/14/position = Vector2( 590.587, -8 )
-nodes/fragment/15/node = SubResource( 33 )
+nodes/fragment/15/node = SubResource( 38 )
 nodes/fragment/15/position = Vector2( 830.587, 52 )
-nodes/fragment/16/node = SubResource( 34 )
+nodes/fragment/16/node = SubResource( 39 )
 nodes/fragment/16/position = Vector2( -49.4129, 52 )
-nodes/fragment/17/node = SubResource( 35 )
+nodes/fragment/17/node = SubResource( 40 )
 nodes/fragment/17/position = Vector2( 380, -80 )
-nodes/fragment/18/node = SubResource( 36 )
+nodes/fragment/18/node = SubResource( 41 )
 nodes/fragment/18/position = Vector2( 1060, 240 )
-nodes/fragment/19/node = SubResource( 37 )
+nodes/fragment/19/node = SubResource( 42 )
 nodes/fragment/19/position = Vector2( 1280, 180 )
-nodes/fragment/20/node = SubResource( 38 )
+nodes/fragment/20/node = SubResource( 43 )
 nodes/fragment/20/position = Vector2( 1420, -40 )
-nodes/fragment/21/node = SubResource( 39 )
+nodes/fragment/21/node = SubResource( 44 )
 nodes/fragment/21/position = Vector2( 1460, 100 )
-nodes/fragment/22/node = SubResource( 40 )
+nodes/fragment/22/node = SubResource( 45 )
 nodes/fragment/22/position = Vector2( 620, 140 )
-nodes/fragment/23/node = SubResource( 41 )
+nodes/fragment/23/node = SubResource( 46 )
 nodes/fragment/23/position = Vector2( 1680, 120 )
 nodes/fragment/connections = PoolIntArray( 3, 0, 4, 0, 4, 1, 6, 0, 5, 0, 7, 0, 7, 0, 6, 1, 6, 0, 10, 0, 7, 0, 10, 1, 10, 0, 11, 0, 16, 0, 13, 0, 13, 0, 14, 1, 14, 0, 15, 0, 13, 0, 17, 1, 4, 0, 17, 0, 17, 0, 14, 0, 11, 0, 18, 1, 3, 1, 18, 2, 18, 0, 19, 2, 15, 0, 19, 1, 20, 0, 0, 0, 19, 0, 21, 1, 4, 2, 15, 2, 3, 1, 22, 1, 4, 2, 22, 0, 22, 0, 21, 0, 21, 0, 23, 0, 23, 0, 0, 1 )
 
-[sub_resource type="ShaderMaterial" id=28]
+[sub_resource type="ShaderMaterial" id=53]
 render_priority = 34
-shader = SubResource( 27 )
+shader = SubResource( 52 )
 shader_param/Stamina = 50.0
 shader_param/Health = 3.0
 
-[sub_resource type="StyleBoxTexture" id=24]
+[sub_resource type="StyleBoxTexture" id=54]
 texture = ExtResource( 5 )
 region_rect = Rect2( 0, 0, 85, 41 )
+
+[sub_resource type="GDScript" id=55]
+script/source = "extends CanvasLayer
+
+func _input(event):
+	if event.is_action_pressed(\"ui_cancel\"):
+		get_tree().paused = !get_tree().paused
+		$Pause_Menu.visible = get_tree().paused
+
+
+func _on_Unpause_pressed():
+	$Pause_Menu.visible = false
+	get_tree().paused = false
+
+
+func _on_Exit_pressed():
+	get_tree().paused = false
+	Singleton.scene_goto(Singleton.main_menu)
+"
+
+[sub_resource type="StyleBoxFlat" id=56]
+bg_color = Color( 0.364706, 0.929412, 0.690196, 1 )
+
+[sub_resource type="StyleBoxFlat" id=57]
+bg_color = Color( 0.45098, 0.101961, 0.329412, 1 )
+
+[sub_resource type="StyleBoxFlat" id=58]
+bg_color = Color( 0.890196, 0.592157, 0.843137, 1 )
+
+[sub_resource type="StyleBoxFlat" id=59]
+bg_color = Color( 0.521569, 0.733333, 0.835294, 1 )
+
+[sub_resource type="DynamicFont" id=60]
+size = 32
+outline_size = 3
+outline_color = Color( 0.364706, 0.929412, 0.690196, 1 )
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=61]
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=62]
+size = 64
+outline_size = 4
+outline_color = Color( 0.45098, 0.101961, 0.329412, 1 )
+font_data = ExtResource( 8 )
 
 [node name="Player" type="Node2D"]
 script = ExtResource( 1 )
@@ -433,12 +481,12 @@ texture = SubResource( 16 )
 [node name="EvadeParticles" type="Particles2D" parent="KinematicBody2D/Player_Sprite"]
 amount = 10
 local_coords = false
-process_material = SubResource( 47 )
+process_material = SubResource( 21 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 4, 0 )
 rotation = 1.5708
-shape = SubResource( 17 )
+shape = SubResource( 22 )
 
 [node name="Camera" type="Camera2D" parent="KinematicBody2D"]
 position = Vector2( 16, 0 )
@@ -461,7 +509,7 @@ script = ExtResource( 3 )
 position = Vector2( 20, 8 )
 scale = Vector2( 2, 2 )
 z_index = 1
-frames = SubResource( 23 )
+frames = SubResource( 28 )
 animation = "Normal"
 playing = true
 
@@ -475,12 +523,12 @@ lifetime = 0.5
 
 [node name="DirectRay" type="RayCast2D" parent="KinematicBody2D/AimPivot/Muzzle"]
 position = Vector2( -16, 0 )
-cast_to = Vector2( 120, 0 )
+cast_to = Vector2( 140, 0 )
 collision_mask = 2
 
 [node name="SmoothRay" type="RayCast2D" parent="KinematicBody2D/AimPivot/Muzzle"]
 position = Vector2( -16, 0 )
-cast_to = Vector2( 220, 0 )
+cast_to = Vector2( 240, 0 )
 collision_mask = 2
 
 [node name="StaminaBar" type="ProgressBar" parent="KinematicBody2D"]
@@ -492,9 +540,9 @@ margin_bottom = 51.0
 rect_rotation = -90.0
 rect_scale = Vector2( 0.3, 0.2 )
 mouse_filter = 2
-custom_styles/fg = SubResource( 53 )
-custom_styles/bg = SubResource( 54 )
-custom_fonts/font = SubResource( 52 )
+custom_styles/fg = SubResource( 29 )
+custom_styles/bg = SubResource( 30 )
+custom_fonts/font = SubResource( 31 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -508,9 +556,9 @@ margin_bottom = 51.0
 rect_rotation = -90.0
 rect_scale = Vector2( 0.3, 0.2 )
 mouse_filter = 2
-custom_styles/fg = SubResource( 50 )
-custom_styles/bg = SubResource( 51 )
-custom_fonts/font = SubResource( 52 )
+custom_styles/fg = SubResource( 32 )
+custom_styles/bg = SubResource( 33 )
+custom_fonts/font = SubResource( 31 )
 max_value = 6.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -519,14 +567,14 @@ __meta__ = {
 [node name="Player_UI" type="CanvasLayer" parent="."]
 
 [node name="UI_Bar" type="Panel" parent="Player_UI"]
-material = SubResource( 28 )
+material = SubResource( 53 )
 anchor_left = 0.075
 anchor_top = 0.075
 anchor_right = 0.075
 anchor_bottom = 0.075
 margin_right = 255.0
 margin_bottom = 123.0
-custom_styles/panel = SubResource( 24 )
+custom_styles/panel = SubResource( 54 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -538,7 +586,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 0
-custom_styles/panel = SubResource( 24 )
+custom_styles/panel = SubResource( 54 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -554,7 +602,78 @@ margin_right = -2.76619
 margin_bottom = -0.487671
 grow_horizontal = 0
 grow_vertical = 0
-custom_styles/panel = SubResource( 24 )
+custom_styles/panel = SubResource( 54 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]
+bus = "Effects"
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+bus = "Effects"
+
+[node name="Pauser" type="CanvasLayer" parent="."]
+pause_mode = 2
+script = SubResource( 55 )
+
+[node name="Pause_Menu" type="Control" parent="Pauser"]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Unpause" type="Button" parent="Pauser/Pause_Menu"]
+anchor_top = 0.45
+anchor_right = 1.0
+anchor_bottom = 0.55
+focus_mode = 0
+custom_styles/hover = SubResource( 56 )
+custom_styles/pressed = SubResource( 57 )
+custom_styles/focus = SubResource( 58 )
+custom_styles/normal = SubResource( 59 )
+custom_fonts/font = SubResource( 60 )
+enabled_focus_mode = 0
+text = "Return"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit" type="Button" parent="Pauser/Pause_Menu"]
+anchor_left = 0.45
+anchor_top = 0.6
+anchor_right = 0.55
+anchor_bottom = 0.65
+margin_left = -1.10803
+margin_top = -1.10803
+margin_right = -1.10803
+margin_bottom = -1.10803
+focus_mode = 0
+custom_styles/hover = SubResource( 56 )
+custom_styles/pressed = SubResource( 57 )
+custom_styles/focus = SubResource( 58 )
+custom_styles/normal = SubResource( 59 )
+custom_fonts/font = SubResource( 61 )
+enabled_focus_mode = 0
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Pauser/Pause_Menu"]
+anchor_top = 0.25
+anchor_right = 1.0
+anchor_bottom = 0.4
+margin_right = 40.0
+margin_bottom = 22.0
+custom_fonts/font = SubResource( 62 )
+text = "GAME PAUSED"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -562,3 +681,5 @@ __meta__ = {
 [connection signal="lose_health" from="." to="." method="_on_Player_lose_health"]
 [connection signal="IsFiring" from="KinematicBody2D/AimPivot" to="." method="_on_AimPivot_IsFiring"]
 [connection signal="IsNotFiring" from="KinematicBody2D/AimPivot" to="." method="_on_AimPivot_IsNotFiring"]
+[connection signal="pressed" from="Pauser/Pause_Menu/Unpause" to="Pauser" method="_on_Unpause_pressed"]
+[connection signal="pressed" from="Pauser/Pause_Menu/Exit" to="Pauser" method="_on_Exit_pressed"]

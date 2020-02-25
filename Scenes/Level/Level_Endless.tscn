@@ -4,13 +4,19 @@
 [ext_resource path="res://Scenes/Shaders/CRT_Monitor.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Entities/Desert_Tile.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Entities/PlayerAnimated.tscn" type="PackedScene" id=4]
-[ext_resource path="res://default_env.tres" type="Environment" id=5]
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="Environment" id=1]
+background_mode = 4
+background_canvas_max_layer = 10
+dof_blur_near_enabled = true
+dof_blur_near_distance = 1.2
+glow_enabled = true
+glow_bloom = 0.4
+
+[sub_resource type="GDScript" id=2]
 script/source = "extends WorldEnvironment
 
 var enemies_killed = 0
-export (int, 1, 1000) var kill_goal = 30
 
 var end_position := Vector2()
 
@@ -19,7 +25,7 @@ onready var label = $CanvasLayer/GoalLabel
 
 func _ready():
 	enemies_killed = 0
-	label.text = \"> ENEMIES KILLED: \" + String(enemies_killed) + \"/\" + String(kill_goal) +\"\\n\"
+	label.text = \"> ENEMIES KILLED: \" + String(enemies_killed)
 	$CanvasLayer/GoalLabel/StrikeThrough.visible = false
 	
 	$Music.stream = load(\"res://Assets/Music/teampunk_desert_prefx.ogg\")
@@ -27,37 +33,28 @@ func _ready():
 
 func enemy_killed():
 	enemies_killed += 1
-	label.text = \"> ENEMIES KILLED: \" + String(enemies_killed) + \"/\" + String(kill_goal) +\"\\n\"
+	label.text = \"> ENEMIES KILLED: \" + String(enemies_killed)
 	
-	if enemies_killed >= kill_goal:
-		for spawner in get_tree().get_nodes_in_group(\"Spawner\"):
-			spawner.queue_free()
-		for enemy in get_tree().get_nodes_in_group(\"Enemy\"):
-			enemy.call_deferred(\"kill\")
-		var g = goal.instance()
-		self.add_child(g)
-		g.global_position = end_position
-		label.text = \"> ENEMIES KILLED: \" + String(kill_goal) + \"/\" + String(kill_goal) +\"\\n\" +\"> FIND THE CAR\"
-		$CanvasLayer/GoalLabel/StrikeThrough.visible = true
-
+	Singleton.data[\"high score\"] = enemies_killed
+	Singleton.save_data()
 "
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.94902, 0.894118, 0.976471, 1 )
 shadow_color = Color( 0.0392157, 0.0392157, 0.192157, 1 )
 shadow_size = 1
 shadow_offset = Vector2( 1, 1 )
 
-[node name="Desert" type="WorldEnvironment" groups=[
+[node name="Endless_Desert" type="WorldEnvironment" groups=[
 "Root",
 ]]
-environment = ExtResource( 5 )
-script = SubResource( 1 )
+environment = SubResource( 1 )
+script = SubResource( 2 )
 
 [node name="Navigation" type="Navigation2D" parent="."]
 
 [node name="TileRoot" parent="Navigation" instance=ExtResource( 3 )]
-tilesLimit = 12
+tilesLimit = 14
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 16, 208 )
@@ -92,7 +89,7 @@ margin_left = 16.0
 margin_top = 6.0
 margin_right = 16.0
 margin_bottom = -48.0
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -22,7 +22,7 @@ var currentTilePos = Vector2.ZERO
 var tilesPlaced = 0
 
 func _ready():
-	generate()
+	call_deferred("generate")
 
 func generate():
 	dynImg = Image.new()
